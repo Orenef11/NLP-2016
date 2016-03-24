@@ -10,9 +10,7 @@ def open_file(name_file, path):
     except FileNotFoundError as e:
         exit("File not found error({0}): {1} and name file is {2}".format(e.errno, e.strerror, name_file))
     return file
-
-
-def get_text_and_division(file_article, file_article_sentences, root, element_tag, index_start, index_end, \
+def get_text_and_division(file_article, file_article_sentences, root, element_tag, index_start, index_end,
                           if_iter=True):
     # Find all the elements the name thg as *element_tag*
     element_list = root.findall(".//" + element_tag)
@@ -49,60 +47,64 @@ def get_text_and_division(file_article, file_article_sentences, root, element_ta
                     first_line = False
                 except IOError as e:
                     exit("I/O error({0}): {1}".format(e.errno, e.strerror))
-
-
-def split_text_to_tokenized(file_article_tokenized):
-    # with codecs.open(file_article_sentences, 'r', 'utf8') as f:
-    #    print(f.readlines())
+def split_text_to_tokenized(file_article_tokenized, name_file):
     # Always add spaces before and after this tokens
-
-
-
-    simple_separators = [".", "!", "?", ",", ";", '<', '>', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=',
-                        '[', ']', '{', '}', "/", "\\", '_', '~', "-", "'", '"']
-
+    simple_separators = [".", "!", "?", ",", ";", '<', '>', '@', '#',
+                         '$', '%', '^', '&', '*', '(', ')', '+', '=',
+                         '[', ']', '{', '}', "/", "\\", '_', '~', "-", "'", '"']
     # Add spaces before and after this tokens only when not between 2 letters (???"? ?'?? ??-?????)
-    SpecialSeparators = ["-", "'", '"']
+    special_word_separators = ["-", "'", '"']
 
-    # Add spaces before and after this tokens only when not between 2 Digits (1,000,000 5.2)
-    SpecialDigitSeparators = [".", ",", "/"]
-
-    lines = [line.rstrip('\r\n') for line in codecs.open("article_sentences.txt", 'r', 'utf8')]
-
+    # Add spaces before and after this tokens only when not between 2 Digits (1,000,000 5.2,
+    # date - 01/01/01 Or 01.01.01)
+    special_digit_separators = [".", ",", "/", ':']
+    # All lines in the text
+    lines = [line.rstrip('\r\n') for line in codecs.open(name_file, 'r', 'utf8')]
+    # The char separator between Tokes
+    space = "~"
     for line in lines:
-        # print(line)
         text = ""
-        if line[0] in simple_separators:
-            text += "".join(line[0] + " ")
+        index = 0
+        if line[index] in simple_separators and line[index+1] not in simple_separators:
+            text += "".join(line[index] + space)
         else:
-            text += "".join(line[0])
-        index = 1
-        for index in range(1, len(line)-1):
-            if line[index] not in simple_separators  or \
-                    line[index] in SpecialDigitSeparators and line[index-1].isdigit() and line[index+1].isdigit() \
-                    or line[index] in SpecialSeparators and line[index-1].isalpha() and line[index+1].isalpha():
-                text += "".join(line[index])
-                #the char is spiceal char
-            elif line[index] in simple_separators and line[index] not in SpecialSeparators and \
-                    line[index] not in SpecialDigitSeparators:
-                text += "".join(line[index] + " ")
-            elif ((line[index] in SpecialSeparators and (line[index - 1].isalpha() and line[index + 1] == " ")) \
-                    or (line[index] or (line[index+1] == " " and line[index-1] != " "))):
-                text += "".join(" " + line[index])
+            text += "".join(line[index])
+        for index in range(index + 1, len(line) - 1):
+            # the first if in line 83 Checked:
+            # Special characters, not between two numbers or two letters
+            # Check if line[index] between two digits
+            # Check if line[index] between two letters
+            if line[index] in simple_separators \
+                    and (not(line[index] in special_digit_separators and line[index - 1].isdigit() \
+                    and line[index + 1].isdigit())) \
+                    and (not(line[index] in special_word_separators and line[index - 1].isalpha() \
+                    and line[index + 1].isalpha())) \
+                    and line[index - 1] != " ":
+                # Checked if  '/' between to word   like oren\lior
+                if line[index] == "/" and line[index-1].isalpha() and line[index + 1]:
+                    text += "".join(space + line[index] + space)
+                # Checked if '-' between to word like the-house and no this-> the------house
+                elif line[index] == "-" and line[index - 1].isalpha() and line[index + 1] not in simple_separators:
+                    text += "".join(line[index])
+                # Checked if  ''' or '"' between to char and before have 'simple separators
+                # like this "'Oren bla bla bla'"
+                elif (line[index] == "'" or line[index] == '"') and (line[index - 1] in simple_separators \
+                    and (line[index + 1].isalpha()) or line[index + 1].isdigit()):
+                    text += "".join(line[index] + space)
+                else:
+                    text += "".join(space + line[index])
+            elif line[index] in simple_separators and \
+                    (line[index - 1] == " " or line[index - 1] in simple_separators) and \
+                    (line[index + 1].isalpha() or line[index + 1].isdigit()):
+                text += "".join(line[index] + space)
             else:
                 text += "".join(line[index])
 
-        if line[len(line)-1] in simple_separators and line[len(line)-2] not in simple_separators:
-            text += "".join(" " + line[len(line)-1])
+        if line[len(line) - 1] in simple_separators:  # and line[len(line)-2] not in simple_separators:
+            text += "".join("~" + line[len(line) - 1])
         else:
-            text += "".join(line[len(line)-1])
+            text += "".join(line[len(line) - 1])
         file_article_tokenized.write(text + '\r\n')
-
-
-
-
-
-
 
 # My code here
 def main(argv):
@@ -111,6 +113,7 @@ def main(argv):
     # url = "http://www.ynet.co.il/articles/0,7340,L-4780286,00.html"
 
     url = "http://www.ynet.co.il/articles/0,7340,L-4636763,00.html"
+    url = "http://www.ynet.co.il/articles/0,7340,L-4782812,00.html"
     path = r"c:\Users\Oren\Documents\GitHub\NLP-2016"
 
     """
@@ -123,11 +126,13 @@ def main(argv):
     else:
         sys.exit("Error: You have not entered two variables!")
     """
-
-    request = requests.get(url).text
-    parser = etree.HTMLParser()
-    tree = etree.parse(StringIO(request), parser)
-    root = tree.getroot()
+    try:
+        request = requests.get(url).text
+        parser = etree.HTMLParser()
+        tree = etree.parse(StringIO(request), parser)
+        root = tree.getroot()
+    except ConnectionError as e:
+        exit("Connection to the Ynet's website failed({0}): {1}".format(e.errno, e.strerror))
 
     tags_list = [('title', 'div', 2, 3, False), ('body', 'p', True)]
     #  tag = ('title', 'div', 2, 3, False) -------------('body', 'p', True) -------------------('sun-titke', 'a', True)
@@ -143,7 +148,7 @@ def main(argv):
 
     file_article.close()
     file_article_sentences.close()
-    split_text_to_tokenized(file_article_tokenized)
+    split_text_to_tokenized(file_article_tokenized, "article_sentences.txt")
     file_article_tokenized.close()
 
     print("All done :-), time ", time.clock() - start, "sec")
