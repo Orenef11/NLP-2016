@@ -1,10 +1,14 @@
+# **************#
+# Portnoy Lior
+# Efraimov Oren
+# **************#
+
 import sys, requests, time, codecs
 from lxml import etree
 from io import StringIO
 
 
 def open_file(name_file, path):
-    file = ""
     try:
         file = codecs.open(path + "\\" + name_file, 'w+', encoding='utf8')
     except FileNotFoundError as e:
@@ -14,6 +18,8 @@ def open_file(name_file, path):
     except:
         sys.exit("Error: Unable to create the file!")
     return file
+
+
 def get_text_and_division(file_article, file_article_sentences, root, element_tag, index_start, index_end,
                           if_iter=True):
     # Find all the elements the name thg as *element_tag*
@@ -51,6 +57,8 @@ def get_text_and_division(file_article, file_article_sentences, root, element_ta
                     first_line = False
                 except IOError as e:
                     exit("I/O error({0}): {1}".format(e.errno, e.strerror))
+
+
 def split_text_to_tokenized(file_article_tokenized, name_file):
     # Always add spaces before and after this tokens
     simple_separators = [".", "!", "?", ",", '<', '>', '@', '#',
@@ -79,13 +87,13 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
             # Check if line[index] between two digits
             # Check if line[index] between two letters
             if line[index] in simple_separators \
-                    and (not(line[index] in special_digit_separators and line[index - 1].isdigit() \
+                    and (not (line[index] in special_digit_separators and line[index - 1].isdigit() \
                     and line[index + 1].isdigit())) \
-                    and (not(line[index] in special_word_separators and line[index - 1].isalpha() \
+                    and (not (line[index] in special_word_separators and line[index - 1].isalpha() \
                     and line[index + 1].isalpha())) \
                     and line[index - 1] != " ":
                 # Checked if  '/' between to word   like oren\lior
-                if line[index] == "/" and line[index-1].isalpha() and line[index + 1]:
+                if line[index] == "/" and line[index - 1].isalpha() and line[index + 1]:
                     text += "".join(space + line[index] + space)
                 # Checked if '-' between to word like the-house and no this-> the------house
                 elif line[index] == "-" and line[index - 1].isalpha() and line[index + 1] not in simple_separators:
@@ -95,7 +103,7 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
                 # Checked if  ''' or '"' between to char and before have 'simple separators
                 # like this "'Oren bla bla bla'"
                 elif (line[index] == "'" or line[index] == '"') and (line[index - 1] in simple_separators \
-                    and (line[index + 1].isalpha()) or line[index + 1].isdigit()):
+                        and (line[index + 1].isalpha()) or line[index + 1].isdigit()):
                     text += "".join(line[index] + space)
                 else:
                     text += "".join(space + line[index])
@@ -111,6 +119,7 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
         else:
             text += "".join(line[len(line) - 1])
         file_article_tokenized.write(text + '\r\n')
+
 
 # My code here
 def main(argv):
@@ -133,7 +142,7 @@ def main(argv):
         sys.exit("Connection to the Ynet's website failed({0}): {1}".format(e.errno, e.strerror))
     except:
         sys.exit("Error: extreme case that took care of him!!\n"
-             "Please contact the support department by phone - 054-9849566 (ask Oren :-))\n")
+                 "Please contact the support department by phone - 054-9849566 (ask Oren :-))\n")
 
     tags_list = [('title', 'div', 2, 3, False), ('body', 'p', True)]
     file_article = open_file("article.txt", path)
