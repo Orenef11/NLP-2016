@@ -1,4 +1,4 @@
-import os, sys, requests, time, codecs
+import sys, requests, time, codecs
 from lxml import etree
 from io import StringIO
 
@@ -8,7 +8,11 @@ def open_file(name_file, path):
     try:
         file = codecs.open(path + "\\" + name_file, 'w+', encoding='utf8')
     except FileNotFoundError as e:
-        exit("File not found error({0}): {1} and name file is {2}".format(e.errno, e.strerror, name_file))
+        sys.exit("Error: File not found error({0}): {1} and name file is {2}".format(e.errno, e.strerror, name_file))
+    except PermissionError as e:
+        sys.exit("Error: Permission denied({0}): {1} and name file is {2}".format(e.errno, e.strerror, name_file))
+    except:
+        sys.exit("Error: Unable to create the file!")
     return file
 def get_text_and_division(file_article, file_article_sentences, root, element_tag, index_start, index_end,
                           if_iter=True):
@@ -49,9 +53,9 @@ def get_text_and_division(file_article, file_article_sentences, root, element_ta
                     exit("I/O error({0}): {1}".format(e.errno, e.strerror))
 def split_text_to_tokenized(file_article_tokenized, name_file):
     # Always add spaces before and after this tokens
-    simple_separators = [".", "!", "?", ",", ";", '<', '>', '@', '#',
+    simple_separators = [".", "!", "?", ",", '<', '>', '@', '#',
                          '$', '%', '^', '&', '*', '(', ')', '+', '=',
-                         '[', ']', '{', '}', "/", "\\", '_', '~', "-", "'", '"']
+                         '[', ']', '{', '}', "/", "\\", '_', '~', "-", "'", '"', ":", ";"]
     # Add spaces before and after this tokens only when not between 2 letters (???"? ?'?? ??-?????)
     special_word_separators = ["-", "'", '"']
 
@@ -65,7 +69,7 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
     for line in lines:
         text = ""
         index = 0
-        if line[index] in simple_separators and line[index+1] not in simple_separators:
+        if line[index] in simple_separators and line[index + 1] not in simple_separators:
             text += "".join(line[index] + space)
         else:
             text += "".join(line[index])
@@ -86,6 +90,8 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
                 # Checked if '-' between to word like the-house and no this-> the------house
                 elif line[index] == "-" and line[index - 1].isalpha() and line[index + 1] not in simple_separators:
                     text += "".join(line[index])
+                elif line[index] == "-" and line[index - 1].isdigit() and line[index + 1].isdigit():
+                    text += "".join(space + line[index] + space)
                 # Checked if  ''' or '"' between to char and before have 'simple separators
                 # like this "'Oren bla bla bla'"
                 elif (line[index] == "'" or line[index] == '"') and (line[index - 1] in simple_separators \
@@ -101,7 +107,7 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
                 text += "".join(line[index])
 
         if line[len(line) - 1] in simple_separators:  # and line[len(line)-2] not in simple_separators:
-            text += "".join("~" + line[len(line) - 1])
+            text += "".join(space + line[len(line) - 1])
         else:
             text += "".join(line[len(line) - 1])
         file_article_tokenized.write(text + '\r\n')
@@ -109,49 +115,47 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
 # My code here
 def main(argv):
     start = time.clock()
-    # url = "http://www.ynet.co.il/articles/0,7340,L-4684564,00.html"
-    # url = "http://www.ynet.co.il/articles/0,7340,L-4780286,00.html"
 
-    url = "http://www.ynet.co.il/articles/0,7340,L-4636763,00.html"
-    url = "http://www.ynet.co.il/articles/0,7340,L-4782812,00.html"
-    path = r"c:\Users\Oren\Documents\GitHub\NLP-2016"
-
-    """
     # Receiving arguments from user
     if len(argv) == 3:
         url = str(sys.argv[1])
         path = str(sys.argv[2])
         print("The data folder is: " + path)
-
     else:
         sys.exit("Error: You have not entered two variables!")
-    """
+
     try:
         request = requests.get(url).text
         parser = etree.HTMLParser()
         tree = etree.parse(StringIO(request), parser)
         root = tree.getroot()
     except ConnectionError as e:
-        exit("Connection to the Ynet's website failed({0}): {1}".format(e.errno, e.strerror))
+        sys.exit("Connection to the Ynet's website failed({0}): {1}".format(e.errno, e.strerror))
+    except:
+        sys.exit("Error: extreme case that took care of him!!\n"
+             "Please contact the support department by phone - 054-9849566 (ask Oren :-))\n")
 
     tags_list = [('title', 'div', 2, 3, False), ('body', 'p', True)]
-    #  tag = ('title', 'div', 2, 3, False) -------------('body', 'p', True) -------------------('sun-titke', 'a', True)
     file_article = open_file("article.txt", path)
     file_article_sentences = open_file("article_sentences.txt", path)
     file_article_tokenized = open_file("article_tokenized.txt", path)
 
+    start2 = time.clock()
     for tag in tags_list:
         if tag[0] == 'title':
             get_text_and_division(file_article, file_article_sentences, root, tag[1], tag[2], tag[3], tag[4])
         else:
             get_text_and_division(file_article, file_article_sentences, root, tag[1], 0, 0, tag[2])
-
+    print("Created the 'article.txt' file, the time taken is ", time.clock() - start2, "sec")
+    print("Created the 'article_sentences.txt' file, the time taken is ", time.clock() - start2, "sec")
     file_article.close()
     file_article_sentences.close()
+    start2 = time.clock()
     split_text_to_tokenized(file_article_tokenized, "article_sentences.txt")
+    print("Created the 'article_sentences.txt' file, the time taken is ", time.clock() - start2, "sec")
     file_article_tokenized.close()
 
-    print("All done :-), time ", time.clock() - start, "sec")
+    print("All done :-), the time it takes to produce all the files ", time.clock() - start, "sec")
     pass
 
 
