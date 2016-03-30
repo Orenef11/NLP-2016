@@ -3,14 +3,16 @@
 # Efraimov Oren
 # **************#
 
-import sys, requests, time, codecs
+import sys, requests, time, codecs, os
 from lxml import etree
 from io import StringIO
 
 
-def open_file(name_file, path):
+# This function create and open file
+# When the file not exist, the function create him
+def open_file(path):
     try:
-        file = codecs.open(path + "\\" + name_file, 'w+', encoding='utf8')
+        file = codecs.open(path, 'w+', encoding='utf8')
     except FileNotFoundError as e:
         sys.exit("Error: File not found error({0}): {1} and name file is {2}".format(e.errno, e.strerror, name_file))
     except PermissionError as e:
@@ -20,28 +22,36 @@ def open_file(name_file, path):
     return file
 
 
+# This function get text and split it to two files: "article.txt" and "article_sentences.txt"
 def get_text_and_division(file_article, file_article_sentences, root, element_tag, index_start, index_end,
                           if_iter=True):
     # Find all the elements the name thg as *element_tag*
     element_list = root.findall(".//" + element_tag)
 
+    # List char - end of sentences
     end_symbol_list = ['. ', "?", "!"]
     i = 0
     first_line = True
     for element in element_list:
+        # Over all data in the "element_list"
         if if_iter:
             data = "".join(element.itertext()).strip()
+        # Over data in one element the get in "element_tag"
         else:
             data = "".join(str(element.text)).strip()
+        # This if check that data not 'None' Or empty
         if data != "None" and len(data) > 0:
             i += 1
-            if (element_tag == 'p' and len(data) > 50) or (element_tag != 'p' and index_start <= i <= index_end):
+            # This if check in the 'p' element that row big from 40 chars
+            # and the title of article get from 'index_start' to 'index_end' indexes
+            if (element_tag == 'p' and len(data) > 40) or (element_tag != 'p' and index_start <= i <= index_end):
                 try:
+                    # Replace all "spacial chars" line \t, \t\t,(space char), \n and \r to space char
                     data = data.replace("\t\t", " ")
                     data = data.replace("\t", " ")
                     data = data.replace("  ", " ")
                     data = data.replace("\n", "")
-                    file_article.write(data)
+                    file_article.write(data + ". ")
 
                     for symbol in end_symbol_list:
                         if symbol == '. ':
@@ -73,7 +83,7 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
     # All lines in the text
     lines = [line.rstrip('\r\n') for line in codecs.open(name_file, 'r', 'utf8')]
     # The char separator between Tokes
-    space = "~"
+    space = " "
     for line in lines:
         text = ""
         index = 0
@@ -82,15 +92,15 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
         else:
             text += "".join(line[index])
         for index in range(index + 1, len(line) - 1):
-            # the first if in line 83 Checked:
+            # the first if in line 89 Checked:
             # Special characters, not between two numbers or two letters
             # Check if line[index] between two digits
             # Check if line[index] between two letters
             if line[index] in simple_separators \
                     and (not (line[index] in special_digit_separators and line[index - 1].isdigit() \
-                    and line[index + 1].isdigit())) \
+                                      and line[index + 1].isdigit())) \
                     and (not (line[index] in special_word_separators and line[index - 1].isalpha() \
-                    and line[index + 1].isalpha())) \
+                                      and line[index + 1].isalpha())) \
                     and line[index - 1] != " ":
                 # Checked if  '/' between to word   like oren\lior
                 if line[index] == "/" and line[index - 1].isalpha() and line[index + 1]:
@@ -98,15 +108,18 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
                 # Checked if '-' between to word like the-house and no this-> the------house
                 elif line[index] == "-" and line[index - 1].isalpha() and line[index + 1] not in simple_separators:
                     text += "".join(line[index])
-                elif line[index] == "-" and line[index - 1].isdigit() and line[index + 1].isdigit():
-                    text += "".join(space + line[index] + space)
                 # Checked if  ''' or '"' between to char and before have 'simple separators
                 # like this "'Oren bla bla bla'"
                 elif (line[index] == "'" or line[index] == '"') and (line[index - 1] in simple_separators \
-                        and (line[index + 1].isalpha()) or line[index + 1].isdigit()):
+                                                                             and (line[index + 1].isalpha()) or line[
+                        index + 1].isdigit()):
                     text += "".join(line[index] + space)
                 else:
-                    text += "".join(space + line[index])
+                    # Checked if '-' between two number like -> 100-300
+                    if line[index] == "-" and line[index - 1].isdigit() and line[index + 1].isdigit():
+                        text += "".join((line[index]))
+                    else:
+                        text += "".join(space + line[index])
             elif line[index] in simple_separators and \
                     (line[index - 1] == " " or line[index - 1] in simple_separators) and \
                     (line[index + 1].isalpha() or line[index + 1].isdigit()):
@@ -114,14 +127,14 @@ def split_text_to_tokenized(file_article_tokenized, name_file):
             else:
                 text += "".join(line[index])
 
-        if line[len(line) - 1] in simple_separators:  # and line[len(line)-2] not in simple_separators:
+        if line[len(line) - 1] in simple_separators:
             text += "".join(space + line[len(line) - 1])
         else:
             text += "".join(line[len(line) - 1])
         file_article_tokenized.write(text + '\r\n')
 
 
-# My code here
+# Main function that get arguments from user
 def main(argv):
     start = time.clock()
 
@@ -132,7 +145,6 @@ def main(argv):
         print("The data folder is: " + path)
     else:
         sys.exit("Error: You have not entered two variables!")
-
     try:
         request = requests.get(url).text
         parser = etree.HTMLParser()
@@ -141,15 +153,17 @@ def main(argv):
     except ConnectionError as e:
         sys.exit("Connection to the Ynet's website failed({0}): {1}".format(e.errno, e.strerror))
     except:
-        sys.exit("Error: extreme case that took care of him!!\n"
+        sys.exit("Error: General fail that not support!!\n"
                  "Please contact the support department by phone - 054-9849566 (ask Oren :-))\n")
 
     tags_list = [('title', 'div', 2, 3, False), ('body', 'p', True)]
-    file_article = open_file("article.txt", path)
-    file_article_sentences = open_file("article_sentences.txt", path)
-    file_article_tokenized = open_file("article_tokenized.txt", path)
+    file_article = open_file(os.path.join(path, "article.txt"))
+    file_article_sentences = open_file(os.path.join(path, "article_sentences.txt"))
+
+    file_article_tokenized = open_file(os.path.join(path, "article_tokenized.txt"))
 
     start2 = time.clock()
+
     for tag in tags_list:
         if tag[0] == 'title':
             get_text_and_division(file_article, file_article_sentences, root, tag[1], tag[2], tag[3], tag[4])
@@ -157,13 +171,14 @@ def main(argv):
             get_text_and_division(file_article, file_article_sentences, root, tag[1], 0, 0, tag[2])
     print("Created the 'article.txt' file, the time taken is ", time.clock() - start2, "sec")
     print("Created the 'article_sentences.txt' file, the time taken is ", time.clock() - start2, "sec")
+
     file_article.close()
     file_article_sentences.close()
+
     start2 = time.clock()
     split_text_to_tokenized(file_article_tokenized, "article_sentences.txt")
     print("Created the 'article_sentences.txt' file, the time taken is ", time.clock() - start2, "sec")
     file_article_tokenized.close()
-
     print("All done :-), the time it takes to produce all the files ", time.clock() - start, "sec")
     pass
 
