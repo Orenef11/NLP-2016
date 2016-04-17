@@ -139,7 +139,7 @@ def raw_frequency_func(two_word_hash, path, all_words_in_file_size):
     # calculate the frequancy values and fill the file
     for cell in two_words_list:
         words_arr = cell[0].split(separator_char)
-        file.write(words_arr[0] + space + words_arr[1] + space + words_arr[0] + separator_char + words_arr[1] + space \
+        file.write(words_arr[0] + space + words_arr[1] + space + cell[0] + space \
                    + str(round(cell[1] * 1000 / all_words_in_file_size, ROUND_NUMBER)) + '\r\n')
 
     two_words_list.clear()
@@ -173,7 +173,7 @@ def pmi_pair_func(two_word_hash, one_word_hash, path, all_pairs_in_file_size, al
             probability = (two_word_hash[words_arr[0] + separator_char + words_arr[1]] / all_pairs_in_file_size) \
                           / (one_word_hash[words_arr[0]] * one_word_hash[words_arr[1]])
 
-            two_words_order_by_value[words_arr[0] + separator_char + words_arr[1]] = math.log(probability, LOG_BASE)
+            two_words_order_by_value[cell] = math.log(probability, LOG_BASE)
 
     order_two_words_list = sorted(two_words_order_by_value.items(), key=lambda x: x[0])
     order_two_words_list = sorted(order_two_words_list, key=lambda x: x[1], reverse=True)
@@ -186,8 +186,7 @@ def pmi_pair_func(two_word_hash, one_word_hash, path, all_pairs_in_file_size, al
     # fill the file
     for cell in order_two_words_list:
         words_arr = cell[0].split(separator_char)
-        file.write(words_arr[0] + space + words_arr[1] + space + cell[0] + space \
-                   + str(round(cell[1], ROUND_NUMBER)) + '\r\n')
+        file.write(words_arr[0] + space + words_arr[1] + space + cell[0] + space + str(round(cell[1], ROUND_NUMBER)) + '\r\n')
         i += 1
         if i == 100:
             break
@@ -220,7 +219,7 @@ def pmi_tri_a_func(three_word_hash, one_word_hash, path, all_words_in_file_size)
         word2_value = one_word_hash[words_arr[1]] * all_words_in_file_size
         word3_value = one_word_hash[words_arr[2]] * all_words_in_file_size
         if word1_value >= 20 and word2_value >= 20 and word3_value >= 20:
-            key = words_arr[0] + separator_char + words_arr[1] + separator_char + words_arr[2]
+            key = cell
             probability = (three_word_hash[key]) \
                           / (one_word_hash[words_arr[0]] * one_word_hash[words_arr[1]] * one_word_hash[words_arr[2]])
             three_words_order_by_value[key] = round(math.log(probability, LOG_BASE), ROUND_NUMBER)
@@ -274,7 +273,7 @@ def pmi_tri_b_func(three_word_hash, two_word_hash, one_word_hash, path, all_pair
         word2_value = one_word_hash[words_arr[1]] * all_words_in_file_size
         word3_value = one_word_hash[words_arr[2]] * all_words_in_file_size
         if word1_value >= 20 and word2_value >= 20 and word3_value >= 20:
-            key = words_arr[0] + separator_char + words_arr[1] + separator_char + words_arr[2]
+            key = cell
             probability = (three_word_hash[key]) \
                           / ((two_word_hash[words_arr[0] + separator_char + words_arr[1]] / all_pairs_in_file_size) * \
                              (two_word_hash[words_arr[1] + separator_char + words_arr[2]]) / all_pairs_in_file_size)
@@ -330,7 +329,7 @@ def pmi_tri_c_func(three_word_hash, two_word_hash, one_word_hash, path, all_pair
         word2_value = one_word_hash[words_arr[1]] * all_words_in_file_size
         word3_value = one_word_hash[words_arr[2]] * all_words_in_file_size
         if word1_value >= 20 and word2_value >= 20 and word3_value >= 20:
-            key = words_arr[0] + separator_char + words_arr[1] + separator_char + words_arr[2]
+            key = cell
             probability = (three_word_hash[key]) \
                           / ((one_word_hash[words_arr[0]] * one_word_hash[words_arr[1]] * one_word_hash[words_arr[2]]) * \
                              ((two_word_hash[words_arr[0] + separator_char + words_arr[1]] / all_pairs_in_file_size) * \
@@ -409,7 +408,6 @@ def main(argv):
         print("Please wait processing....")
     else:
         sys.exit("Error: You have not entered two variables!")
-
     data_of_files = ''
 
     # This step gets input folder and merge all files to one big
