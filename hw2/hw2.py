@@ -169,7 +169,7 @@ def pmi_pair_func(two_word_hash, one_word_hash, path, all_pairs_in_file_size, al
         word1_value = one_word_hash[words_arr[0]] * all_words_in_file_size
         word2_value = one_word_hash[words_arr[1]] * all_words_in_file_size
 
-        if word1_value >= 0 and word2_value >= 0:
+        if word1_value >= 20 and word2_value >= 20:
             probability = (two_word_hash[words_arr[0] + separator_char + words_arr[1]] / all_pairs_in_file_size) \
                           / (one_word_hash[words_arr[0]] * one_word_hash[words_arr[1]])
 
