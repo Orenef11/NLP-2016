@@ -103,18 +103,18 @@ def make_three_words_hash(three_word_hash, data_of_files):
     return size, three_word_hash
 
 
-########################################################
-# Function 'split_to_sentences'
-# This function get three parameters :
-########################################################
-def split_to_sentences(output_file_name, path, data_of_files):
-    sentncets_data_of_files = codecs.open(str(os.path.join(path, output_file_name)), 'w+', 'utf8')
-    # data_of_files = data_of_files.replace('\r', "")
-    # data_of_files = data_of_files.replace('\n', "\r\n")
-    data_of_files = sentncets_data_of_files.readline()
-    sentncets_data_of_files.close()
-    os.remove(str(os.path.join(path, output_file_name)))
-    return data_of_files
+# ########################################################
+# # Function 'split_to_sentences'
+# # This function get three parameters :
+# ########################################################
+# def split_to_sentences(output_file_name, path, data_of_files):
+#     sentncets_data_of_files = codecs.open(str(os.path.join(path, output_file_name)), 'w+', 'utf8')
+#     # data_of_files = data_of_files.replace('\r', "")
+#     # data_of_files = data_of_files.replace('\n', "\r\n")
+#     data_of_files = sentncets_data_of_files.readline()
+#     sentncets_data_of_files.close()
+#     os.remove(str(os.path.join(path, output_file_name)))
+#     return data_of_files
 
 
 ##########################################################
@@ -169,7 +169,7 @@ def pmi_pair_func(two_word_hash, one_word_hash, path, all_pairs_in_file_size, al
         word1_value = one_word_hash[words_arr[0]] * all_words_in_file_size
         word2_value = one_word_hash[words_arr[1]] * all_words_in_file_size
 
-        if word1_value >= 20 and word2_value >= 20:
+        if word1_value >= 0 and word2_value >= 0:
             probability = (two_word_hash[words_arr[0] + separator_char + words_arr[1]] / all_pairs_in_file_size) \
                           / (one_word_hash[words_arr[0]] * one_word_hash[words_arr[1]])
 
@@ -186,7 +186,7 @@ def pmi_pair_func(two_word_hash, one_word_hash, path, all_pairs_in_file_size, al
     # fill the file
     for cell in order_two_words_list:
         words_arr = cell[0].split(separator_char)
-        file.write(words_arr[0] + space + words_arr[1] + space + words_arr[0] + separator_char + words_arr[1] + space \
+        file.write(words_arr[0] + space + words_arr[1] + space + cell[0] + space \
                    + str(round(cell[1], ROUND_NUMBER)) + '\r\n')
         i += 1
         if i == 100:
@@ -237,7 +237,7 @@ def pmi_tri_a_func(three_word_hash, one_word_hash, path, all_words_in_file_size)
     for cell in order_three_words_list:
         words_arr = cell[0].split(separator_char)
         file.write(words_arr[0] + space + words_arr[1] + space + words_arr[2] + \
-                   space + words_arr[0] + separator_char + words_arr[1] + separator_char + words_arr[2] + space \
+                   space + cell[0] + space \
                    + str(cell[1]) + '\r\n')
         i += 1
         if i == 100:
@@ -292,7 +292,7 @@ def pmi_tri_b_func(three_word_hash, two_word_hash, one_word_hash, path, all_pair
     for cell in order_three_words_list:
         words_arr = cell[0].split(separator_char)
         file.write(words_arr[0] + space + words_arr[1] + space + words_arr[2] + \
-                   space + words_arr[0] + separator_char + words_arr[1] + separator_char + words_arr[2] + space \
+                   space + cell[0] + space \
                    + str(cell[1]) + '\r\n')
         i += 1
         if i == 100:
@@ -349,8 +349,7 @@ def pmi_tri_c_func(three_word_hash, two_word_hash, one_word_hash, path, all_pair
     for cell in order_three_words_list:
         words_arr = cell[0].split(separator_char)
         file.write(words_arr[0] + space + words_arr[1] + space + words_arr[2] + \
-                   space + words_arr[0] + separator_char + words_arr[1] + separator_char + words_arr[2] + space \
-                   + str(cell[1]) + '\r\n')
+                   space + cell[0] + space + str(cell[1]) + '\r\n')
         i += 1
         if i == 100:
             break
@@ -372,21 +371,20 @@ def pmi_tri_c_func(three_word_hash, two_word_hash, one_word_hash, path, all_pair
 # output_path :
 # The function run the functions for create the output files.
 ##############################################################
-def run_collocation_functions(input_path, filename, output_path):
+def run_collocation_functions(filename, output_path):
     one_word_hash = {}
     two_word_hash = {}
     three_word_hash = {}
-
-    temp_file = codecs.open(str(os.path.join(input_path, filename)), 'r', 'utf8')
+    try:
+        temp_file = codecs.open(filename, 'r', 'utf8')
+    except:
+        sys.exit("Error: Unable to read the file with all data!")
     data_of_files = temp_file.read()
     temp_file.close()
 
-    folder_name = filename.split('.')[0]
-    output_path = str(os.path.join(output_path, folder_name))
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    # data_of_files = split_to_sentncets('sentncets.txt', output_path, data_of_files)
 
     all_words_in_file_size, one_word_hash = make_one_word_hash(one_word_hash, data_of_files)
     all_pairs_in_file_size, two_word_hash = make_two_words_hash(two_word_hash, data_of_files)
@@ -403,20 +401,36 @@ def run_collocation_functions(input_path, filename, output_path):
 
 def main(argv):
     start = time.clock()
-    input_path = r'/home/oren/PycharmProjects/Homework/NLP-2016/hw2/testset_literature'
-    output_path = r'/home/oren/PycharmProjects/Homework/NLP-2016/hw2/output'
+    if len(argv) == 3:
+        input_path = argv[1]
+        output_path = argv[2]
+        print("The input data folder is: " + input_path)
+        print("The output data folder is: " + output_path)
+        print("Please wait processing")
+    else:
+        sys.exit("Error: You have not entered two variables!")
 
     data_of_files = ''
 
     # This step gets input folder and merge all files to one big
     # file for next step (create collocation files).
-    f = codecs.open(str(os.path.join(input_path, 'bigFile.txt')), "w+", 'utf8')
+    try:
+        f = codecs.open('bigFile.txt', "w+", 'utf8')
+    except:
+        sys.exit("Error: Unable to create the file that include all data!")
+
     for tempfile in os.listdir(input_path):
-        file = codecs.open(str(os.path.join(input_path, tempfile)), "r", 'utf8')
+        try:
+            file = codecs.open(str(os.path.join(input_path, tempfile)), "r", 'utf8')
+        except:
+            sys.exit("Error: Unable to read the file!" + tempfile)
         data_of_files = "".join(data_of_files + str(file.read()) + str('\n'))
         file.close()
     f.write(data_of_files)
-    run_collocation_functions(input_path, 'bigFile.txt', output_path)
+    run_collocation_functions('bigFile.txt', output_path)
+    f.close()
+
+    os.remove('bigFile.txt')
     print("All done :-), it's take ", time.clock() - start, "sec")
 
 
