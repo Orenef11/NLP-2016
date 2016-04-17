@@ -102,21 +102,6 @@ def make_three_words_hash(three_word_hash, data_of_files):
 
     return size, three_word_hash
 
-
-# ########################################################
-# # Function 'split_to_sentences'
-# # This function get three parameters :
-# ########################################################
-# def split_to_sentences(output_file_name, path, data_of_files):
-#     sentncets_data_of_files = codecs.open(str(os.path.join(path, output_file_name)), 'w+', 'utf8')
-#     # data_of_files = data_of_files.replace('\r', "")
-#     # data_of_files = data_of_files.replace('\n', "\r\n")
-#     data_of_files = sentncets_data_of_files.readline()
-#     sentncets_data_of_files.close()
-#     os.remove(str(os.path.join(path, output_file_name)))
-#     return data_of_files
-
-
 ##########################################################
 # Function 'raw_frequency_func'
 # This function get three parameters :
@@ -139,7 +124,7 @@ def raw_frequency_func(two_word_hash, path, all_words_in_file_size):
     # calculate the frequancy values and fill the file
     for cell in two_words_list:
         words_arr = cell[0].split(separator_char)
-        file.write(words_arr[0] + space + words_arr[1] + space + words_arr[0] + separator_char + words_arr[1] + space \
+        file.write(words_arr[0] + space + words_arr[1] + space + cell[0] + space \
                    + str(round(cell[1] * 1000 / all_words_in_file_size, ROUND_NUMBER)) + '\r\n')
 
     two_words_list.clear()
