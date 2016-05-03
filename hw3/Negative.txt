@@ -1,7 +1,7 @@
 second-rate
 violent
 moronic
-third-rate
+third rate
 flawed
 juvenile
 boring
@@ -20,10 +20,10 @@ predictable
 stupid
 uninteresting
 weak
-incredibly-tiresome
+incredibly tiresome
 trite
 uneven
-cliche-ridden
+cliche ridden
 outdated
 dreadful
 bland

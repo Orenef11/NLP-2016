@@ -42,39 +42,27 @@ allReviews = []
 def create_postive_and_negtive_dict():
     pos_dict = {}
     neg_dict = {}
-    with open("positive.txt", "r") as f:
+    with open("Positive.txt", "r") as f:
         for line in f.readlines():
             pos_dict[line.replace("\n", "")] = 0
 
-    with open("negative.txt", "r") as f:
+    with open("Negative.txt", "r") as f:
         for line in f.readlines():
             neg_dict[line.replace("\n", "")] = 0
     return pos_dict, neg_dict
 
 
 def feature_vector(pos_words_dict, neg_words_dict, file_path):
-    vector = []
-    count_pos = count_neg = 0
+    vector = [0] *(len(pos_words_dict) + len(neg_words_dict))
     with open(file_path, "r", encoding="utf8") as f:
         for line in f.readlines():
             words = line.split(" ")
-            for word in words:
-                if word in pos_words_dict.keys():
-                    count_pos += 1
-                elif word in neg_words_dict.keys():
-                    count_neg += 1
-
-    for i in range(0, len(pos_words_dict)):
-        if i < count_pos:
-            vector.append(1)
-        else:
-            vector.append(0)
-
-    for ii in range(0, len(neg_words_dict)):
-        if ii < count_neg:
-            vector.append(1)
-        else:
-            vector.append(0)
+            for index, word in enumerate(pos_words_dict):
+                if word in words:
+                    vector[index] = 1
+            for index, word in enumerate(neg_words_dict):
+                if word in words:
+                    vector[index] = 1
 
     return vector
 
@@ -96,18 +84,6 @@ def create_vector_for_all_review(pos_path, neg_path, pos_words_dict, neg_words_d
 
 def main(argv):
     start = time.clock()
-    ##
-    ##if len(argv) == 3:
-     ##   input_path = argv[1]
-     ##   output_path = argv[2]
-     ##   print("The input data folder is: " + input_path)
-     ##   print("The output data folder is: " + output_path)
-     ##   print("Please wait processing....")
-    ##else:
-     ##   sys.exit("Error: You have not entered two variables!")
-    ##
-
-    ## dic_file = open('dictionary.txt', 'r')
 
     pos_words_dict, neg_words_dict = create_postive_and_negtive_dict()
     pos_path = r"imdb1.train\pos"
