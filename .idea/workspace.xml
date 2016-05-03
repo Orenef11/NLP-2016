@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67561765-244b-4524-88f7-c6f8ee739734" name="Default" comment="Update - 21:53">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/NLP-2016.iml" afterPath="$PROJECT_DIR$/.idea/NLP-2016.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="67561765-244b-4524-88f7-c6f8ee739734" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw3/Negative.txt" afterPath="$PROJECT_DIR$/hw3/Negative.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw3/hw3.py" afterPath="$PROJECT_DIR$/hw3/hw3.py" />
     </list>
     <ignored path="NLP-2016.iws" />
@@ -27,22 +24,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="hw3.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
+      <file leaf-file-name="Positive.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hw3/Positive.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+            <state relative-caret-position="136">
+              <caret line="8" column="8" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hw3.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Desktop/hw3.py">
+      <file leaf-file-name="Negative.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+            <state relative-caret-position="31">
+              <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hw3.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="111">
+              <caret line="111" column="28" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="28" />
+              <folding>
+                <element signature="e#68#92#0" expanded="true" />
+                <element signature="e#2331#2595#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hww.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hw3/hww.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="144" column="135" selection-start-line="144" selection-start-column="135" selection-end-line="144" selection-end-column="135" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+                <element signature="e#234#555#0" expanded="false" />
+                <element signature="e#574#930#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,6 +99,7 @@
         <option value="$PROJECT_DIR$/hw2/hw2.py" />
         <option value="$PROJECT_DIR$/hw3/Negative.txt" />
         <option value="$PROJECT_DIR$/hw3/hw3.py" />
+        <option value="$PROJECT_DIR$/hw3/hww.py" />
       </list>
     </option>
   </component>
@@ -141,6 +166,24 @@
               <option name="myItemId" value="NLP-2016" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hw3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="imdb1.train" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NLP-2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NLP-2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -148,7 +191,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/hw3/hw3.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/hw3/hww.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="134" />
@@ -175,7 +218,7 @@
       <recent name="C:\Users\Oren\PycharmProjects\Homework\NLP-20161" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Unnamed">
+  <component name="RunManager" selected="Python.zhai-run">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -310,7 +353,24 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Unnamed" type="PythonConfigurationType" factoryName="Python">
+    <configuration default="false" name="hw3-run" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hw3" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="NLP-2016" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hw3/hw3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="zhai-run" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -322,13 +382,14 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="NLP-2016" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hw3/hw3.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hw3/hww.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Python.Unnamed" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Python.hw3-run" />
+      <item index="1" class="java.lang.String" itemvalue="Python.zhai-run" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -394,7 +455,14 @@
       <option name="project" value="LOCAL" />
       <updated>1461690503991</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="bla bla">
+      <created>1462284507642</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1462284507642</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -407,17 +475,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2875817" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35073408" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32789558" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32626426" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3251634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39869282" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -444,11 +512,12 @@
     <MESSAGE value="Update - is final" />
     <MESSAGE value="Update -1111" />
     <MESSAGE value="Update - 21:53" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update - 21:53" />
+    <MESSAGE value="bla bla" />
+    <option name="LAST_COMMIT_MESSAGE" value="bla bla" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -457,7 +526,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#68#92#0" expanded="true" />
+            <element signature="e#2331#2595#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -530,22 +602,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hw3/Positive.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/hw3.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="321">
@@ -554,11 +610,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hw3/Positive.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.1/system/python_stubs/-791851423/sklearn/tree/_tree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="548" column="8" selection-start-line="548" selection-start-column="8" selection-end-line="548" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hw3/hww.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="144" column="135" selection-start-line="144" selection-start-column="135" selection-end-line="144" selection-end-column="135" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#234#555#0" expanded="false" />
+            <element signature="e#574#930#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="111">
+          <caret line="111" column="28" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="28" />
+          <folding>
+            <element signature="e#68#92#0" expanded="true" />
+            <element signature="e#2331#2595#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
