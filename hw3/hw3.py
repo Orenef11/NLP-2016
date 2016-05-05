@@ -26,7 +26,6 @@ def make_dataset_lists_after_KFold_func(test_indexes, vectors_data, vectors_kind
     return training_dataset, training_dataset_kind, true_kind_of_test
 
 
-
 def blabla(vectors_data, vectores_kind, classifier):
     cv = KFold(len(vectors_data), n_folds=K_FOLDS)
     accuracy = 0
