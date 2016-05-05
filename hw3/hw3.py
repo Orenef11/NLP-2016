@@ -152,8 +152,7 @@ def build_feature_vectors_of_bag_of_words(words_of_reviews, pos_path, neg_path):
     cv = CountVectorizer()
     transformer = TfidfTransformer()
     features = transformer.fit_transform(cv.fit_transform(file_data).toarray()).toarray()
-    print(len(features[0]))
-    return features, feature_label
+    return list(features), feature_label
 
 
 
