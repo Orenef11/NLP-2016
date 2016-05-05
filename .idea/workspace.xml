@@ -27,7 +27,7 @@
       <file leaf-file-name="Positive.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hw3/Positive.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
+            <state relative-caret-position="158">
               <caret line="15" column="8" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="8" />
               <folding />
             </state>
@@ -37,7 +37,7 @@
       <file leaf-file-name="Negative.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="102">
               <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
               <folding />
             </state>
@@ -47,10 +47,12 @@
       <file leaf-file-name="hw3.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-208">
-              <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+            <state relative-caret-position="216">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding>
                 <element signature="e#68#96#0" expanded="true" />
+                <element signature="e#571#1402#0" expanded="false" />
+                <element signature="e#1475#1999#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -489,7 +491,14 @@
       <option name="project" value="LOCAL" />
       <updated>1462467301896</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="05.05.16 20:10">
+      <created>1462468261762</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1462468261762</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -561,7 +570,8 @@
     <MESSAGE value="bla bla" />
     <MESSAGE value="05.05.16 12:28" />
     <MESSAGE value="05.05.16 19:54" />
-    <option name="LAST_COMMIT_MESSAGE" value="05.05.16 19:54" />
+    <MESSAGE value="05.05.16 20:10" />
+    <option name="LAST_COMMIT_MESSAGE" value="05.05.16 20:10" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -592,6 +602,8 @@
           <caret line="90" column="20" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
           <folding>
             <element signature="e#68#96#0" expanded="true" />
+            <element signature="e#571#1402#0" expanded="false" />
+            <element signature="e#1475#1999#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -614,6 +626,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#68#96#0" expanded="true" />
+            <element signature="e#571#1402#0" expanded="false" />
+            <element signature="e#1475#1999#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -681,14 +695,6 @@
     <entry file="file://$PROJECT_DIR$/hw2/dd.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa0.062/hw2.py" />
     <entry file="file://$USER_HOME$/Desktop/hw3.py" />
-    <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2016.1/system/python_stubs/-791851423/sklearn/tree/_tree.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
@@ -726,18 +732,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hw3/Positive.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
+        <state relative-caret-position="158">
           <caret line="15" column="8" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-208">
-          <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+        <state relative-caret-position="216">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding>
             <element signature="e#68#96#0" expanded="true" />
+            <element signature="e#571#1402#0" expanded="false" />
+            <element signature="e#1475#1999#0" expanded="false" />
           </folding>
         </state>
       </provider>

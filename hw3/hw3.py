@@ -8,10 +8,10 @@ from sklearn.svm import SVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import tree
-from sklearn.cross_validation import KFold, cross_val_score
+from sklearn.cross_validation import KFold
 from sklearn.metrics import accuracy_score
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-import numpy as np
+from sklearn.feature_selection import SelectKBest, chi2
 
 K_FOLDS = 10
 
@@ -40,11 +40,6 @@ def classifiers_function(vectors_data, vectors_kind, classifier):
     for train_indexes, test_indexes in cv:
         training_data_set, training_data_set_kind, true_kind_of_test = make_data_set_lists_after_kfold_func(
             test_indexes, vectors_data, vectors_kind)
-        # print(training_data_set);print(training_data_set_kind);exit()
-        # for i in range(len(training_data_set)):
-        #     print(training_data_set[i])
-        # exit()
-
         classifier.fit(training_data_set, training_data_set_kind)
         accuracy += accuracy_score(true_kind_of_test, classifier.predict(
             vectors_data[test_indexes[0]:test_indexes[len(test_indexes) - 1] + 1]))
@@ -152,6 +147,7 @@ def build_feature_vectors_of_bag_of_words(words_of_reviews, pos_path, neg_path):
     cv = CountVectorizer()
     transformer = TfidfTransformer()
     features = transformer.fit_transform(cv.fit_transform(file_data).toarray()).toarray()
+
     return list(features), feature_label
 
 
@@ -223,10 +219,20 @@ def main(argv):
 
     # Sections of Question 2
     vectors_of_reviews, pos_and_neg_kind_list = create_feature_vectors_by_bag_of_words(pos_path, neg_path)
-    classifiers = initial_classifier()
-    for classifier_idx, classifier in enumerate(classifiers):
-        print(classifiers_name[classifier_idx] + " classifier" + "- the accuracy is of is ",
-              classifiers_function(vectors_of_reviews, pos_and_neg_kind_list, classifier))
+    # classifiers = initial_classifier()
+    # for classifier_idx, classifier in enumerate(classifiers):
+    #     print(classifiers_name[classifier_idx] + " classifier" + "- the accuracy is of is ",
+    #           classifiers_function(vectors_of_reviews, pos_and_neg_kind_list, classifier))
+
+    # sel = SelectKBest(k=50)
+    # c = sel.fit_transform(vectors_of_reviews, pos_and_neg_kind_list)
+    # print(sel.get_params())
+    # print(len(sel.get_support()))
+    # print(len(c))
+    selector = SelectKBest(k=45)
+    s = selector.fit(vectors_of_reviews, pos_and_neg_kind_list)
+    print(selector.__hash__())
+    exit()
 
     print("All done :-), it's take ", time.clock() - start, "sec")
 
