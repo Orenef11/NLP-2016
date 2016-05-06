@@ -10,13 +10,17 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn import tree
 from sklearn.cross_validation import KFold
 from sklearn.metrics import accuracy_score
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.feature_selection import SelectKBest, chi2
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, ENGLISH_STOP_WORDS
+from sklearn.feature_selection import SelectKBest
 from os.path import join
-import numpy as np
 K_FOLDS = 10
 
-def create_positive_and_negative_dict():
+################################################
+# Function 'create_positive_and_negative_dict'
+# the function read positive words file and
+# negative words file and return lists of words.
+#################################################
+def create_positive_and_negative_list():
     pos_list = []
     neg_list = []
     with open("Positive.txt", "r") as f:
@@ -27,6 +31,12 @@ def create_positive_and_negative_dict():
             neg_list.append(line.replace("\n", ""))
 
     return pos_list, neg_list
+
+############################################################
+# Function - 'feature_vector'
+# the function create binary feature vector for input file
+# using negative and positive words.
+###########################################################
 def feature_vector(pos_words_dict, neg_words_dict, file_path):
     vector = [0] * (len(pos_words_dict) + len(neg_words_dict))
     review = 0
@@ -40,6 +50,11 @@ def feature_vector(pos_words_dict, neg_words_dict, file_path):
             vector[len(pos_words_dict) + index] = 1
 
     return vector
+
+#############################################################
+# Function - 'create_feature_vector_for_all_reviews'
+# the function create binary feature vector for all reviews.
+#############################################################
 def create_feature_vector_for_all_reviews(pos_path, neg_path, pos_words_dict, neg_words_dict):
     vectors_dict_for_mixing = {}
     feature_label = []
@@ -61,12 +76,23 @@ def create_feature_vector_for_all_reviews(pos_path, neg_path, pos_words_dict, ne
             feature_label.append(0)
 
     return vectors_of_reviews, feature_label
+
+###################################################
+# Function - 'initial_classifier'
+# the function init and return classifier objects.
+###################################################
 def initial_classifier():
     svm_classifier = SVC()
     naive_bayes_classifier = MultinomialNB()
     decision_tree_classifier = tree.DecisionTreeClassifier()
     knn_classifier = KNeighborsClassifier()
     return [svm_classifier, naive_bayes_classifier, decision_tree_classifier, knn_classifier]
+
+########################################################################
+# Function - 'make_data_set_lists_after_kfold_func'
+# the function receive test indexes for vector data testing.
+# the function return training data with test result and actual result.
+########################################################################
 def make_data_set_lists_after_kfold_func(test_indexes, vectors_data, vectors_kind):
     if len(vectors_data[0:test_indexes[0]]) != 0:
         training_data_set = vectors_data[0:test_indexes[0]]
@@ -83,6 +109,12 @@ def make_data_set_lists_after_kfold_func(test_indexes, vectors_data, vectors_kin
     true_kind_of_test = vectors_kind[test_indexes[0]:test_indexes[len(test_indexes) - 1] + 1]
 
     return training_data_set, training_data_set_kind, true_kind_of_test
+
+############################################################
+# Function - 'classifiers_function'
+# the function receive vector data and classifier type and
+# return the accuracy result.
+############################################################
 def classifiers_function(vectors_data, vectors_label, classifier):
     cv = KFold(len(vectors_data), n_folds=K_FOLDS)
     accuracy = 0
@@ -94,7 +126,15 @@ def classifiers_function(vectors_data, vectors_label, classifier):
             vectors_data[test_indexes[0]:test_indexes[len(test_indexes) - 1] + 1]))
 
     return accuracy / K_FOLDS
-def build_feature_vectors_of_bag_of_words(pos_path, neg_path, sort_by_feature_label):
+
+###################################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Function - 'build_feature_vectors_of_bag_of_words'
+# the function receive negative and positive input files and build feature vectors
+# by 'bag of words'.
+###################################################################################
+def build_feature_vectors_of_bag_of_words(pos_path, neg_path, sort_by_feature_label, vocabulary=None):
     pos_file_data = []
     neg_file_data = []
     for file_name in os.listdir(pos_path):
@@ -115,10 +155,24 @@ def build_feature_vectors_of_bag_of_words(pos_path, neg_path, sort_by_feature_la
             file_data.append(neg_file_data[neg_idx])
             neg_idx += 1
 
-    cv = CountVectorizer()
+    if vocabulary == "None":
+        cv = CountVectorizer(stop_words=ENGLISH_STOP_WORDS)
+    else:
+        cv = CountVectorizer(stop_words=ENGLISH_STOP_WORDS, vocabulary=vocabulary)
     transformer = TfidfTransformer()
     features_vector = transformer.fit_transform(cv.fit_transform(file_data).toarray()).toarray()
-    return list(features_vector), sort_by_feature_label
+    return list(features_vector), sort_by_feature_label, cv.get_feature_names()
+
+
+def best_words_features(vectors_of_reviews, feature_label, feature_words):
+    sel = SelectKBest(k=50)
+    sel.fit_transform(vectors_of_reviews, feature_label)
+    k_best_index = sel.get_support(indices="True")
+    words = []
+    for i in k_best_index:
+        words.append(feature_words[i])
+
+    return words
 
 def main(argv):
     start = time.clock()
@@ -128,7 +182,7 @@ def main(argv):
     else:
         print("The path entered is: ", argv[1])
 
-    pos_words_dict, neg_words_dict = create_positive_and_negative_dict()
+    pos_words_list, neg_words_list = create_positive_and_negative_list()
     pos_path = join(argv[1], "pos")
     neg_path = join(argv[1], "neg")
     classifiers_name = ["SVM", "Navie-Bayes", "Decision-Tree", "KNN"]
@@ -136,34 +190,42 @@ def main(argv):
     # Sections of Question 1
     classifiers = initial_classifier()
     vectors_of_reviews, feature_label = create_feature_vector_for_all_reviews(
-        pos_path, neg_path, pos_words_dict, neg_words_dict)
-    print("~~~~Question 1~~~~")
-    for classifier_idx, classifier in enumerate(classifiers):
-        t = time.clock()
-        print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
-              classifiers_function(vectors_of_reviews, feature_label, classifier),
-              " it's take ", time.clock() - t, "sec")
+        pos_path, neg_path, pos_words_list, neg_words_list)
+    # print("~~~~Question 1~~~~")
+    # for classifier_idx, classifier in enumerate(classifiers):
+    #     t = time.clock()
+    #     print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
+    #           classifiers_function(vectors_of_reviews, feature_label, classifier),
+    #           " it's take ", time.clock() - t, "sec")
 
     # Sections of Question 2
-    vectors_of_reviews, feature_label = build_feature_vectors_of_bag_of_words(pos_path, neg_path, feature_label)
+    vectors_of_reviews, feature_label, feature_words = build_feature_vectors_of_bag_of_words(
+        pos_path, neg_path, feature_label)
     classifiers = initial_classifier()
     print("~~~~Question 2~~~~")
+    # for classifier_idx, classifier in enumerate(classifiers):
+    #     t = time.clock()
+    #     if classifier_idx != 0:
+    #         print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
+    #               classifiers_function(vectors_of_reviews, feature_label, classifier),
+    #               " it's take ", (time.clock() - t) / 60, "min")
+
+    # Sections of Question 3
+    best_words = best_words_features(vectors_of_reviews, feature_label, feature_words)
+
+    # Sections of Question 4
+    vectors_of_reviews, feature_label, feature_words = build_feature_vectors_of_bag_of_words(
+        pos_path, neg_path, feature_label, best_words)
+    classifiers = initial_classifier()
+    print("~~~~Question 4~~~~")
     for classifier_idx, classifier in enumerate(classifiers):
         t = time.clock()
         print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
-              classifiers_function(vectors_of_reviews, feature_label, classifier),
-              " it's take ", time.clock() - t, "sec")
+              classifiers_function(vectors_of_reviews, feature_label, classifier), " it's take ",
+              (time.clock() - t) / 60, "min")
 
-    # sel = SelectKBest(k=50)
-    # c = sel.fit_transform(vectors_of_reviews, feature_label)
-    # print(sel.get_params())
-    # print(len(sel.get_support()))
-    # print(len(c))
-    # selector = SelectKBest(k=45)
-    # s = selector.fit(vectors_of_reviews, feature_label)
 
-    print("All done :-), it's take ", time.clock() - start, "sec")
-
+    print("All done :-), it's take ", (time.clock() - start) / 60, "min")
 
 if __name__ == "__main__":
     main(sys.argv)

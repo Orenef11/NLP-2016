@@ -37,8 +37,8 @@
       <file leaf-file-name="Negative.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+            <state relative-caret-position="238">
+              <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -47,17 +47,17 @@
       <file leaf-file-name="hw3.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="154" column="44" selection-start-line="154" selection-start-column="44" selection-end-line="154" selection-end-column="44" />
+            <state relative-caret-position="672">
+              <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
               <folding>
                 <element signature="e#68#96#0" expanded="true" />
-                <element signature="e#570#888#0" expanded="false" />
-                <element signature="e#956#1361#0" expanded="false" />
-                <element signature="e#1461#2376#0" expanded="false" />
-                <element signature="e#2407#2673#0" expanded="false" />
-                <element signature="e#2762#3593#0" expanded="false" />
-                <element signature="e#3665#4194#0" expanded="false" />
-                <element signature="e#4285#5175#0" expanded="false" />
+                <element signature="e#804#1122#0" expanded="false" />
+                <element signature="e#1438#1843#0" expanded="false" />
+                <element signature="e#2182#3097#0" expanded="false" />
+                <element signature="e#3318#3584#0" expanded="false" />
+                <element signature="e#4005#4836#0" expanded="false" />
+                <element signature="e#5156#5685#0" expanded="false" />
+                <marker date="1462547849425" expanded="false" signature="7438:7673" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -69,20 +69,6 @@
             <state relative-caret-position="5678">
               <caret line="334" column="92" selection-start-line="334" selection-start-column="92" selection-end-line="334" selection-end-column="92" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hww.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hw3/hww.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="71" column="115" selection-start-line="71" selection-start-column="7" selection-end-line="71" selection-end-column="115" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#234#555#0" expanded="false" />
-                <element signature="e#574#930#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -113,9 +99,9 @@
         <option value="$PROJECT_DIR$/hw1.py" />
         <option value="$PROJECT_DIR$/hw2/dd.py" />
         <option value="$PROJECT_DIR$/hw2/hw2.py" />
-        <option value="$PROJECT_DIR$/hw3/Negative.txt" />
         <option value="$PROJECT_DIR$/hw3/hww.py" />
         <option value="$PROJECT_DIR$/hw3/Positive.txt" />
+        <option value="$PROJECT_DIR$/hw3/Negative.txt" />
         <option value="$PROJECT_DIR$/hw3/hw3.py" />
       </list>
     </option>
@@ -172,24 +158,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="hw3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NLP-2016" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NLP-2016" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hw3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="imdb1.train" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -535,7 +503,21 @@
       <option name="project" value="LOCAL" />
       <updated>1462521191390</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="06.05.16 11:11">
+      <created>1462522305865</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1462522305865</updated>
+    </task>
+    <task id="LOCAL-00018" summary="06.05.16 11:11">
+      <created>1462522461618</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1462522461618</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView">
@@ -548,22 +530,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23206443" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21949404" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2875817" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25980392" sideWeight="0.5029762" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3496732" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25826773" sideWeight="0.5058565" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32789558" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34910277" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28346458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2822186" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25980392" sideWeight="0.49702382" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26797387" sideWeight="0.4941435" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -609,7 +591,8 @@
     <MESSAGE value="05.05.16 19:54" />
     <MESSAGE value="05.05.16 20:10" />
     <MESSAGE value="06.05.16 10:52" />
-    <option name="LAST_COMMIT_MESSAGE" value="06.05.16 10:52" />
+    <MESSAGE value="06.05.16 11:11" />
+    <option name="LAST_COMMIT_MESSAGE" value="06.05.16 11:11" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -618,6 +601,47 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/hw3/Positive.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#68#96#0" expanded="true" />
+            <element signature="e#804#1122#0" expanded="false" />
+            <element signature="e#1438#1843#0" expanded="false" />
+            <element signature="e#2182#3097#0" expanded="false" />
+            <element signature="e#3318#3584#0" expanded="false" />
+            <element signature="e#4005#4836#0" expanded="false" />
+            <element signature="e#5156#5685#0" expanded="false" />
+            <marker date="1462547849425" expanded="false" signature="7438:7673" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hw2/hw2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5678">
+          <caret line="334" column="92" selection-start-line="334" selection-start-column="92" selection-end-line="334" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/hw3/Positive.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -640,13 +664,13 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#68#96#0" expanded="true" />
-            <element signature="e#570#888#0" expanded="false" />
-            <element signature="e#956#1361#0" expanded="false" />
-            <element signature="e#1461#2376#0" expanded="false" />
-            <element signature="e#2407#2673#0" expanded="false" />
-            <element signature="e#2762#3593#0" expanded="false" />
-            <element signature="e#3665#4194#0" expanded="false" />
-            <element signature="e#4285#5175#0" expanded="false" />
+            <element signature="e#804#1122#0" expanded="false" />
+            <element signature="e#1438#1843#0" expanded="false" />
+            <element signature="e#2182#3097#0" expanded="false" />
+            <element signature="e#3318#3584#0" expanded="false" />
+            <element signature="e#4005#4836#0" expanded="false" />
+            <element signature="e#5156#5685#0" expanded="false" />
+            <marker date="1462547849425" expanded="false" signature="7438:7673" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -663,11 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="71" column="115" selection-start-line="71" selection-start-column="7" selection-end-line="71" selection-end-column="115" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#234#555#0" expanded="false" />
-            <element signature="e#574#930#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -693,13 +712,13 @@
           <caret line="90" column="20" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
           <folding>
             <element signature="e#68#96#0" expanded="true" />
-            <element signature="e#570#888#0" expanded="false" />
-            <element signature="e#956#1361#0" expanded="false" />
-            <element signature="e#1461#2376#0" expanded="false" />
-            <element signature="e#2407#2673#0" expanded="false" />
-            <element signature="e#2762#3593#0" expanded="false" />
-            <element signature="e#3665#4194#0" expanded="false" />
-            <element signature="e#4285#5175#0" expanded="false" />
+            <element signature="e#804#1122#0" expanded="false" />
+            <element signature="e#1438#1843#0" expanded="false" />
+            <element signature="e#2182#3097#0" expanded="false" />
+            <element signature="e#3318#3584#0" expanded="false" />
+            <element signature="e#4005#4836#0" expanded="false" />
+            <element signature="e#5156#5685#0" expanded="false" />
+            <marker date="1462547849425" expanded="false" signature="7438:7673" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -708,11 +727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#234#555#0" expanded="false" />
-            <element signature="e#574#930#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -722,13 +736,13 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#68#96#0" expanded="true" />
-            <element signature="e#570#888#0" expanded="false" />
-            <element signature="e#956#1361#0" expanded="false" />
-            <element signature="e#1461#2376#0" expanded="false" />
-            <element signature="e#2407#2673#0" expanded="false" />
-            <element signature="e#2762#3593#0" expanded="false" />
-            <element signature="e#3665#4194#0" expanded="false" />
-            <element signature="e#4285#5175#0" expanded="false" />
+            <element signature="e#804#1122#0" expanded="false" />
+            <element signature="e#1438#1843#0" expanded="false" />
+            <element signature="e#2182#3097#0" expanded="false" />
+            <element signature="e#3318#3584#0" expanded="false" />
+            <element signature="e#4005#4836#0" expanded="false" />
+            <element signature="e#5156#5685#0" expanded="false" />
+            <marker date="1462547849425" expanded="false" signature="7438:7673" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -819,6 +833,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/hw3/hww.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="71" column="115" selection-start-line="71" selection-start-column="7" selection-end-line="71" selection-end-column="115" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/hw3/Positive.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -829,37 +850,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hw3/Negative.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+        <state relative-caret-position="238">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hw3/hww.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="71" column="115" selection-start-line="71" selection-start-column="7" selection-end-line="71" selection-end-column="115" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#234#555#0" expanded="false" />
-            <element signature="e#574#930#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="154" column="44" selection-start-line="154" selection-start-column="44" selection-end-line="154" selection-end-column="44" />
+        <state relative-caret-position="672">
+          <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
           <folding>
             <element signature="e#68#96#0" expanded="true" />
-            <element signature="e#570#888#0" expanded="false" />
-            <element signature="e#956#1361#0" expanded="false" />
-            <element signature="e#1461#2376#0" expanded="false" />
-            <element signature="e#2407#2673#0" expanded="false" />
-            <element signature="e#2762#3593#0" expanded="false" />
-            <element signature="e#3665#4194#0" expanded="false" />
-            <element signature="e#4285#5175#0" expanded="false" />
+            <element signature="e#804#1122#0" expanded="false" />
+            <element signature="e#1438#1843#0" expanded="false" />
+            <element signature="e#2182#3097#0" expanded="false" />
+            <element signature="e#3318#3584#0" expanded="false" />
+            <element signature="e#4005#4836#0" expanded="false" />
+            <element signature="e#5156#5685#0" expanded="false" />
+            <marker date="1462547849425" expanded="false" signature="7438:7673" placeholder="..." />
           </folding>
         </state>
       </provider>
