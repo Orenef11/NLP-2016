@@ -13,8 +13,10 @@ from sklearn.metrics import accuracy_score
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, ENGLISH_STOP_WORDS
 from sklearn.feature_selection import SelectKBest
 from os.path import join
-K_FOLDS = 10
 
+K_FOLDS = 10
+POS_LABEL = 1
+NEG_LABEL = 0
 ################################################
 # Function 'create_positive_and_negative_dict'
 # the function read positive words file and
@@ -38,16 +40,15 @@ def create_positive_and_negative_list():
 # using negative and positive words.
 ###########################################################
 def feature_vector(pos_words_dict, neg_words_dict, file_path):
-    vector = [0] * (len(pos_words_dict) + len(neg_words_dict))
-    review = 0
+    vector = [NEG_LABEL] * (len(pos_words_dict) + len(neg_words_dict))
     with codecs.open(file_path, "r", "utf8") as f:
         review = f.read()
     for index, word in enumerate(pos_words_dict):
         if word in review:
-            vector[index] = 1
+            vector[index] = POS_LABEL
     for index, word in enumerate(neg_words_dict):
         if word in review:
-            vector[len(pos_words_dict) + index] = 1
+            vector[len(pos_words_dict) + index] = POS_LABEL
 
     return vector
 
@@ -70,10 +71,10 @@ def create_feature_vector_for_all_reviews(pos_path, neg_path, pos_words_dict, ne
     for key in vectors_dict_for_mixing.keys():
         if key.split("-")[0] == "pos":
             vectors_of_reviews.append(vectors_dict_for_mixing[key])
-            feature_label.append(1)
+            feature_label.append(POS_LABEL)
         else:
             vectors_of_reviews.append(vectors_dict_for_mixing[key])
-            feature_label.append(0)
+            feature_label.append(NEG_LABEL)
 
     return vectors_of_reviews, feature_label
 
@@ -164,8 +165,8 @@ def build_feature_vectors_of_bag_of_words(pos_path, neg_path, sort_by_feature_la
     return list(features_vector), sort_by_feature_label, cv.get_feature_names()
 
 
-def best_words_features(vectors_of_reviews, feature_label, feature_words):
-    sel = SelectKBest(k=50)
+def best_words_features(vectors_of_reviews, feature_label, feature_words, sum_best_words=50):
+    sel = SelectKBest(k=sum_best_words)
     sel.fit_transform(vectors_of_reviews, feature_label)
     k_best_index = sel.get_support(indices="True")
     words = []
@@ -205,10 +206,10 @@ def main(argv):
     print("~~~~Question 2~~~~")
     for classifier_idx, classifier in enumerate(classifiers):
         t = time.clock()
-        if classifier_idx != 0:
-            print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
-                  classifiers_function(vectors_of_reviews, feature_label, classifier),
-                  " it's take ", (time.clock() - t) / 60, "min")
+        # if classifier_idx != 0:
+        print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
+              classifiers_function(vectors_of_reviews, feature_label, classifier),
+              " it's take ", (time.clock() - t) / 60, "min")
 
     # Sections of Question 3
     best_words = best_words_features(vectors_of_reviews, feature_label, feature_words)
