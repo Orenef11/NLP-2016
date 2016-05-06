@@ -222,9 +222,9 @@ def main(argv):
         t = time.clock()
         print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
               classifiers_function(vectors_of_reviews, feature_label, classifier), " it's take ",
-              (time.clock() - t) / 60, "min")
+              (time.clock() - t), "sec")
 
-
+    print(best_words)
     print("All done :-), it's take ", (time.clock() - start) / 60, "min")
 
 if __name__ == "__main__":
