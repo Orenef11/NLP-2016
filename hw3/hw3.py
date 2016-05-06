@@ -132,8 +132,6 @@ def main(argv):
     pos_path = join(argv[1], "pos")
     neg_path = join(argv[1], "neg")
     classifiers_name = ["SVM", "Navie-Bayes", "Decision-Tree", "KNN"]
-    vectors_of_reviews, feature_label = create_feature_vector_for_all_reviews(
-        pos_path, neg_path, pos_words_dict, neg_words_dict)
 
     # Sections of Question 1
     classifiers = initial_classifier()
@@ -141,16 +139,20 @@ def main(argv):
         pos_path, neg_path, pos_words_dict, neg_words_dict)
     print("~~~~Question 1~~~~")
     for classifier_idx, classifier in enumerate(classifiers):
+        t = time.clock()
         print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
-              classifiers_function(vectors_of_reviews, feature_label, classifier))
+              classifiers_function(vectors_of_reviews, feature_label, classifier),
+              " it's take ", time.clock() - t, "sec")
 
     # Sections of Question 2
     vectors_of_reviews, feature_label = build_feature_vectors_of_bag_of_words(pos_path, neg_path, feature_label)
     classifiers = initial_classifier()
     print("~~~~Question 2~~~~")
     for classifier_idx, classifier in enumerate(classifiers):
+        t = time.clock()
         print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
-              classifiers_function(vectors_of_reviews, feature_label, classifier))
+              classifiers_function(vectors_of_reviews, feature_label, classifier),
+              " it's take ", time.clock() - t, "sec")
 
     # sel = SelectKBest(k=50)
     # c = sel.fit_transform(vectors_of_reviews, feature_label)
