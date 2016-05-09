@@ -195,9 +195,9 @@ def main(argv):
     print("~~~~Question 1~~~~")
     for classifier_idx, classifier in enumerate(classifiers):
         t = time.clock()
-        print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
-              classifiers_function(vectors_of_reviews, feature_label, classifier),
-              " it's take ", time.clock() - t, "sec")
+        print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is {0:.6f}"
+        .format(classifiers_function(vectors_of_reviews, feature_label, classifier)),
+              " it's take {0:.4f}".format(time.clock() - t), "sec")
 
     # Sections of Question 2
     vectors_of_reviews, feature_label, feature_words = build_feature_vectors_of_bag_of_words(
@@ -207,9 +207,9 @@ def main(argv):
     for classifier_idx, classifier in enumerate(classifiers):
         t = time.clock()
         # if classifier_idx != 0:
-        print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
-              classifiers_function(vectors_of_reviews, feature_label, classifier),
-              " it's take ", (time.clock() - t) / 60, "min")
+        print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is {0:.6f}"
+              .format(classifiers_function(vectors_of_reviews, feature_label, classifier)),
+              " it's take {0:.4f}".format((time.clock() - t) / 60), "min")
 
     # Sections of Question 3
     best_words = best_words_features(vectors_of_reviews, feature_label, feature_words)
@@ -221,12 +221,12 @@ def main(argv):
     print("~~~~Question 4~~~~")
     for classifier_idx, classifier in enumerate(classifiers):
         t = time.clock()
-        print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is ",
-              classifiers_function(vectors_of_reviews, feature_label, classifier), " it's take ",
-              (time.clock() - t), "sec")
+        print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is {0:.6f}"
+              .format(classifiers_function(vectors_of_reviews, feature_label, classifier)),
+              " it's take {0:.4f}".format(time.clock() - t), "sec")
 
     print(best_words)
-    print("All done :-), it's take ", (time.clock() - start) / 60, "min")
+    print("All done :-), it's take {0:.4f}".format((time.clock() - start) / 60), "min")
 
 if __name__ == "__main__":
     main(sys.argv)
