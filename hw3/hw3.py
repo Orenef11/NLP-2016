@@ -178,8 +178,8 @@ def main(argv):
     input_file_words = "words.txt"
     words_list = create_positive_and_negative_list(input_file_words)
 
-    pos_path = join(argv[1], "pos")
-    neg_path = join(argv[1], "neg")
+    pos_path = join(argv[2], "pos")
+    neg_path = join(argv[2], "neg")
     classifiers_name = ["SVM", "Navie-Bayes", "Decision-Tree", "KNN"]
 
     # Sections of Question 1
@@ -193,8 +193,6 @@ def main(argv):
         .format(classifiers_function(vectors_of_reviews, feature_label, classifier)),
               " it's take {0:.4f}".format(time.clock() - t), "sec")
 
-
-    exit("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     # Sections of Question 2
     vectors_of_reviews, feature_label, feature_words = build_feature_vectors_of_bag_of_words(
         pos_path, neg_path, feature_label)
