@@ -219,7 +219,6 @@ def main(argv):
               .format(classifiers_function(vectors_of_reviews, feature_label, classifier)),
               " it's take {0:.4f}".format(time.clock() - t), "sec")
 
-    print(best_words)
     print("All done :-), it's take {0:.4f}".format((time.clock() - start) / 60), "min")
 
 if __name__ == "__main__":

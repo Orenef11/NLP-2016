@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="67561765-244b-4524-88f7-c6f8ee739734" name="Default" comment="update all homework">
       <change type="DELETED" beforePath="$PROJECT_DIR$/hw2/hw2.rar" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw3/hw3report.pdf" afterPath="$PROJECT_DIR$/hw3/hw3report.pdf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw3/עיבוד שפות טבעיות.docx" afterPath="$PROJECT_DIR$/hw3/עיבוד שפות טבעיות.docx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hw3/hw3.py" afterPath="$PROJECT_DIR$/hw3/hw3.py" />
     </list>
@@ -28,8 +30,8 @@
       <file leaf-file-name="hw3.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="194" column="0" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
+            <state relative-caret-position="102">
+              <caret line="213" column="24" selection-start-line="213" selection-start-column="24" selection-end-line="213" selection-end-column="24" />
               <folding>
                 <element signature="e#68#96#0" expanded="true" />
                 <element signature="e#809#967#0" expanded="false" />
@@ -531,7 +533,14 @@
       <option name="project" value="LOCAL" />
       <updated>1462799539660</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="update 09.05.16 1615">
+      <created>1462799744725</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1462799744725</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TodoView">
@@ -611,7 +620,8 @@
     <MESSAGE value="final of final!&#10;&#10;" />
     <MESSAGE value="update all homework" />
     <MESSAGE value="final of final!&#10;After all changes." />
-    <option name="LAST_COMMIT_MESSAGE" value="final of final!&#10;After all changes." />
+    <MESSAGE value="update 09.05.16 1615" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 09.05.16 1615" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -902,8 +912,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hw3/hw3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="194" column="0" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
+        <state relative-caret-position="102">
+          <caret line="213" column="24" selection-start-line="213" selection-start-column="24" selection-end-line="213" selection-end-column="24" />
           <folding>
             <element signature="e#68#96#0" expanded="true" />
             <element signature="e#809#967#0" expanded="false" />
