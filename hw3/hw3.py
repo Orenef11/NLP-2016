@@ -155,7 +155,7 @@ def build_feature_vectors_of_bag_of_words(pos_path, neg_path, sort_by_feature_la
     return list(features_vector), sort_by_feature_label, cv.get_feature_names()
 
 
-def best_words_features(vectors_of_reviews, feature_label, feature_words, sum_best_words=50):
+def best_words_features(vectors_of_reviews, feature_label, feature_words, file_patn, sum_best_words=50):
     sel = SelectKBest(k=sum_best_words)
     sel.fit_transform(vectors_of_reviews, feature_label)
     k_best_index = sel.get_support(indices="True")
@@ -163,23 +163,35 @@ def best_words_features(vectors_of_reviews, feature_label, feature_words, sum_be
     for i in k_best_index:
         words.append(feature_words[i])
 
+    f = open(file_patn, "w")
+    i = 1
+    for word in words:
+        if i < len(words):
+            f.write(word + "\r\n")
+        else:
+            f.write(word)
+
+        i += 1
+    f.close()
+
     return words
 
 def main(argv):
     start = time.clock()
 
-    if len(argv) != 3:
+    if len(argv) != 4:
         exit("Error: You need to enter like that:"
              " 'python hw3.py <input_dir> <words_file_input_path> <best_words_file_output_path>'")
     else:
-        print("The input file path is: ", argv[1])
-        print("The path entered is: ", argv[2])
+        print("The reviews folder path entered is: ", argv[1])
+        print("The words file input path is: ", argv[2])
+        print("The best words file path entered is: ", argv[3])
 
-    input_file_words = "words.txt"
+    input_file_words = argv[2]
     words_list = create_positive_and_negative_list(input_file_words)
 
-    pos_path = join(argv[2], "pos")
-    neg_path = join(argv[2], "neg")
+    pos_path = join(argv[1], "pos")
+    neg_path = join(argv[1], "neg")
     classifiers_name = ["SVM", "Navie-Bayes", "Decision-Tree", "KNN"]
 
     # Sections of Question 1
@@ -200,13 +212,12 @@ def main(argv):
     print("~~~~Question 2~~~~")
     for classifier_idx, classifier in enumerate(classifiers):
         t = time.clock()
-        # if classifier_idx != 0:
         print(classifiers_name[classifier_idx] + " classifier " + "- the accuracy is of is {0:.6f}"
               .format(classifiers_function(vectors_of_reviews, feature_label, classifier)),
               " it's take {0:.4f}".format((time.clock() - t) / 60), "min")
 
     # Sections of Question 3
-    best_words = best_words_features(vectors_of_reviews, feature_label, feature_words)
+    best_words = best_words_features(vectors_of_reviews, feature_label, feature_words, argv[3])
 
     # Sections of Question 4
     vectors_of_reviews, feature_label, feature_words = build_feature_vectors_of_bag_of_words(
