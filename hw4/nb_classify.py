@@ -1,16 +1,15 @@
 from time import clock
-from sklearn.naive_bayes import MultinomialNB
 from div_train_test import *
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, ENGLISH_STOP_WORDS
 from nltk.tokenize import TweetTokenizer
-from random import shuffle
-from sklearn.metrics import accuracy_score
+from nltk import FreqDist
+from math import log2, fabs
 
+CATEGORY_SIZE = 5
+BAD_CLASSIFY = -1
+GOOD_CLASSIFY = 1
+TEST_INSTANCE_SIZE = 50
 
-
-SIZE_CATEGORY = 5
-
-def div_instances_per_category(instances_list):
+def div_instances_per_category(instances_list, label_category):
     cord_instances = []
     formation_instances = []
     phone_instances = []
@@ -29,70 +28,74 @@ def div_instances_per_category(instances_list):
         elif instance.senseid == "product":
             product_instances.append(instance)
 
-    return [cord_instances, formation_instances, phone_instances, division_instances, product_instances]
-# def feature_vector_by_category(instances_list):
-#     bag_of_words_dict = {}
-#     for item in instances_list:
-#         tknzr = TweetTokenizer()
-#         words_list = tknzr.tokenize(item.context)
-#         for word in words_list:
-#             bag_of_words_dict[word] = 0
-#     bag_of_words_after_order = list(bag_of_words_dict.keys())
-#     bag_of_words_after_order.sort()
-#     # Create empty vector per instance
-#     vectors_feature = []
-#     vector = [0] * len(bag_of_words_after_order)
-#     for i in range(len(instances_list)):
-#         vectors_feature.append(vector)
-#
-#     for item in instances_list:
-#         tknzr = TweetTokenizer()
-#         words_list = tknzr.tokenize(item.context)
-#         for word in words_list:
-#             if word in bag_of_words_after_order:
-#                 vectors_feature[0][bag_of_words_after_order.index(word)] = 1
-#
-#     return vectors_feature, bag_of_words_after_order
-def feature_vector_by_category(instances_of_category_list, label_of_instance):
-    cv = CountVectorizer()
-    transformer = TfidfTransformer()
+    l = []
+    for key in label_category:
+        if label_category[key] == "cord":
+            l.append(cord_instances)
+        elif label_category[key] == "formation":
+            l.append(formation_instances)
+        elif label_category[key] == "phone":
+            l.append(phone_instances)
+        elif label_category[key] == "division":
+            l.append(division_instances)
+        elif label_category[key] == "product":
+            l.append(product_instances)
 
-    file_data = []
-    for item in instances_of_category_list:
-        tknzr = TweetTokenizer()
+    return l
+
+def div_instances_to_tokens_data(instances_per_category_list):
+
+    tokens_data_per_category = ""
+    tknzr = TweetTokenizer()
+
+    for item in instances_per_category_list:
         tokenize_text = tknzr.tokenize(item.context)
         s = " ".join(tokenize_text)
-        file_data.append(s)
+        tokens_data_per_category += s
 
-    features_vector = transformer.fit_transform(cv.fit_transform(file_data).toarray()).toarray()
-    return features_vector, cv.get_feature_names(), [label_of_instance] * len(features_vector)
+    return tokens_data_per_category
 
-def build_and_shuffle_feature_vectors_train(instances_train, labels_dict):
+def model_language(freq_dict_object):
+    features_vector = {}
+    keys_list = freq_dict_object.keys()
+    size_tokens_in_category = keys_list.__len__()
 
-    file_data = []
-    shuffle(instances_train)
-    d = {}
+    count_all_tokens = 0
+    for key in freq_dict_object.keys():
+        count_all_tokens += freq_dict_object[key]
 
-    cv = CountVectorizer()
-    transformer = TfidfTransformer()
-    vector_label = []
-    start = clock()
-    for item in instances_train:
-        tknzr = TweetTokenizer()
-        tokenize_text = tknzr.tokenize(item.context)
-        s = " ".join(tokenize_text)
-        file_data.append(s)
-        key = item.senseid
-        vector_label.append(labels_dict[key])
-    #     if key in d:
-    #         d[key] += 1
-    #     else:
-    #         d[key] = 1
-    #
-    # print(d)
-    print(clock() - start)
-    features_vector = transformer.fit_transform(cv.fit_transform(file_data)).toarray()
-    return features_vector, cv.get_feature_names(), vector_label
+    for key in keys_list:
+        features_vector[key] = (freq_dict_object[key] + 1) / (size_tokens_in_category + count_all_tokens)
+
+    return freq_dict_object, count_all_tokens
+
+def classify_instances_to_category(instances_test, model_language_list, label_category_reverse,
+                                   all_tokens_size, prior_list):
+    classify_list = [0] * CATEGORY_SIZE
+    for instance in instances_test:
+        max_prediction = 0
+        category_classify = -1
+        for i in range(CATEGORY_SIZE):
+            dictionary_size = len(model_language_list[i].keys())
+            tokens_instance = div_instances_to_tokens_data([instance])
+            prior = prior_list[i]
+            probability = log2(prior)
+
+            for token in tokens_instance:
+                token_probability = model_language_list[i][token] + 1 / (dictionary_size + all_tokens_size[i])
+
+                probability += log2(token_probability)
+
+            if probability > max_prediction:
+                max_prediction = probability
+                category_classify = i
+
+        if category_classify == label_category_reverse[instance.senseid]:
+            classify_list[category_classify] += GOOD_CLASSIFY
+        # else:
+        #     classify_list[category_classify] += BAD_CLASSIFY
+
+    return classify_list
 
 def main():
     start = clock()
@@ -100,65 +103,50 @@ def main():
     instances_test = instance_parsing("test.xml")
 
     # Create label to each category
-    label_dict = {"cord": 1, "formation": 2, "phone": 3, "division": 4, "product": 5}
+    label_category = {0: "cord", 1: "formation", 2: "phone", 3: "division", 4: "product"}
+    label_category_reverse = {"cord": 0, "formation": 1, "phone": 2, "division": 3, "product": 4}
 
-    # Create feature_vector and vector label to instance train to learn the classifier
-    features_vector_train, bag_of_words, vector_label_train = \
-        build_and_shuffle_feature_vectors_train(instances_train, label_dict)
-    classifier = MultinomialNB()
-    classifier.fit(features_vector_train, vector_label_train)
+    # The order list is as follow: cord, formation, phone, division, product
+    instances_train_list = div_instances_per_category(instances_train, label_category)
 
-    # The order list is as follow: cord_instances, formation_instances, phone_instances, division_instances,
-    #  product_instances
-    instances_train_list = div_instances_per_category(instances_train)
-    print(len(features_vector_train))
-    # The all list's only to instances test
-    bag_of_words_per_category_test = []
-    feature_vectors_by_category_test = []
-    label_per_category_test = []
+    freq_dict_per_category, model_language_list, prior_list, all_tokens_size_list = [], [], [], []
 
-    for idx, instances_of_category in enumerate(instances_train_list):
-        feature_vector, bag_of_words, labels = feature_vector_by_category(instances_of_category,
-                                                                          label_dict[instances_of_category[0].senseid])
-        # print(type(features_vector_train));print(type(feature_vector));exit()
-        classifier.predict(feature_vector)
-        bag_of_words_per_category_test.append(bag_of_words)
-        feature_vectors_by_category_test.append(feature_vector)
-        label_per_category_test.append(labels)
-        break;
+    for i in range(CATEGORY_SIZE):
+        tokens_data_per_category = div_instances_to_tokens_data(instances_train_list[i])
+        freq_dict_per_category.append(FreqDist(tokens_data_per_category.split(' ')))
+        model_language_temp, all_tokens_size = model_language(freq_dict_per_category[i])
+        prior_list.append(instances_train_list[i].__len__() / len(instances_train))
+        model_language_list.append(model_language_temp)
+        all_tokens_size_list.append(all_tokens_size)
 
-    # for idx in range(len(feature_vectors_by_category_test)):
-    #     print(type(features_vector_train))
-    #     accuracy = 0
+    # for model in model_language_list:
+    #     count = 0
+    #     d = len(model_language_list[i].keys())
+    #     for key in model.keys():
+    #         a = ( model_language_list[i][key] + 1) / (d + all_tokens_size_list[i])
+    #         count += a
     #
-    #     classifier.predict(features_vector_train)
-    #     exit()
-    #     accuracy += accuracy_score(bag_of_words_per_category_test[idx],
-    #                                classifier.predict(feature_vectors_by_category_test[idx]))
-    #     print(accuracy);exit()
-
-    # for i in range(len(feature_vectors_by_category)):
-    #     print(len(feature_vectors_by_category[i]))
-    #     print(len(bag_of_words_per_category[i]))
-    # print(len(features_vector[0]))
-    # print(cv.get_feature_names());
-    # for index, train_list in enumerate(instances_train_list):
-    #     l = [it]
-    #     instances_train_list[index], bag_of_words_per_category[index] = feature_vector_by_category(l)
-    #     print(len(bag_of_words_per_category[index]));
-    #     print(bag_of_words_per_category[index]);
-    #     break;
+    #     print(count)
+    # exit()
+    # print(instances_train_list[0].__len__(), )
+    # print(instances_train_list[1].__len__())
+    # print(instances_train_list[2].__len__())
+    # print(instances_train_list[3].__len__())
+    # print(instances_train_list[4].__len__())
     #
-    # words = list(cv.get_feature_names())
-    # for word in bag_of_words_per_category[0]:
-    #     if word.lower() in bag_of_words_per_category[0]:
-    #         words.remove(word)
-    #
-    # print(len(words))
-    # print(words)
+    # print(((instances_train_list[0].__len__()/ len(instances_train)))+\
+    # ((instances_train_list[1].__len__()/ len(instances_train)))+\
+    # ((instances_train_list[2].__len__()/ len(instances_train)))+\
+    # (instances_train_list[3].__len__()/ len(instances_train))+\
+    # (instances_train_list[4].__len__()/ len(instances_train)))
     # exit()
 
+    freq_dict_per_category.clear()
+    d = classify_instances_to_category(instances_test, model_language_list, label_category_reverse,
+                                       all_tokens_size_list, prior_list)
 
+    for i in range(CATEGORY_SIZE):
+        print(d[i])
 
     print("All done :-), the time it takes to produce all the files ", clock() - start, "sec")
 

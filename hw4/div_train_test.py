@@ -1,46 +1,9 @@
-import sys, time, os
+from time import clock
+from sys import argv
 from os.path import join
 import xml.etree.ElementTree as ET
 from random import randrange
 from auxiliary_class import INSTANCE
-# class INSTANCE:
-#     def __init__(self, instance_id="", answer_id="", senseid="", data="", instance_xml=""):
-#         self.instance_id = instance_id
-#         self.answer_id = answer_id
-#         self.senseid = senseid
-#         self.data = data
-#         self.instance_xml = instance_xml
-#
-#     def parsing_instance_to_object(self, instance_xml):
-#         for child in instance_xml.iter():
-#             sub_tags = list(child.attrib)
-#
-#             for tag in sub_tags:
-#                 if tag == "id":
-#                     self.instance_id = str(child.attrib[tag])
-#                 if tag == "instance":
-#                     self.answer_id = str(child.attrib[tag])
-#                 if tag == "senseid":
-#                     self.senseid = child.attrib[tag]
-#             if child.tag == "context":
-#                 texts = []
-#                 for sub_child in child.iter():
-#                     texts.append(sub_child.text)
-#                 context = ""
-#                 i = 1
-#                 for text in texts:
-#                     context += text
-#                     if i < len(texts):
-#                         context += "\r\n"
-#                     i += 1
-#
-#                 self.context = context
-#         self.instance_xml = instance_xml
-#
-#     def tostring(self):
-#         print("Instance id is ", self.instance_id)
-#         print("Answer instance id is ", self.answer_id, " and senseid is ", self.senseid)
-#         print("The context is {0}".format(self.context))
 
 def instance_parsing(path_file):
     etree = ET.parse(path_file)
@@ -122,9 +85,8 @@ def div_by_category(object_instances_by_category_list):
     print(len(object_instances_by_category_list), "----", len(instance_test))
     return list(instance_test.values()), object_instances_by_category_list
 
-
 def main(argv):
-    start = time.clock()
+    start = clock()
     if len(argv) < 3:
         exit("Error: You need to enter like that: python div_train_test.py <input_file_path> <output_files_path>")
     else:
@@ -134,7 +96,7 @@ def main(argv):
     all_instance_test, all_instance_train = div_train_and_test_file(instances_list)
     export_to_xml_file(all_instance_test, join(argv[2], "test.xml"))
     export_to_xml_file(all_instance_train, join(argv[2], "train.xml"))
-    print("All done :-), the time it takes to produce all the files ", time.clock() - start, "sec")
+    print("All done :-), the time it takes to produce all the files ", clock() - start, "sec")
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main(argv)
