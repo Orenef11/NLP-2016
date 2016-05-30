@@ -101,7 +101,6 @@ class NaiveBayes(object):
 
         return accuracy, results_to_file, precision_dict, recall_dict
 
-
 def main(argv):
     # Calculation Runtime
     start = clock()

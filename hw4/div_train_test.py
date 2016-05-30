@@ -103,5 +103,6 @@ def main(argv):
     export_to_xml_file(all_instance_train_dict, join(argv[2], "train.xml"))
     print("All done :-), the time it takes to produce all the files ", clock() - start, "sec")
 
+
 if __name__ == "__main__":
     main(argv)
