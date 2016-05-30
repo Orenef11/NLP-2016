@@ -1,55 +1,29 @@
+#################
+# Oren Efraimov  #
+#                #
+# Lior Portnoy   #
+##################
+
+from sys import argv
 from time import clock
 from nltk import FreqDist
 from math import log2
 from nltk import word_tokenize
 from div_train_test import instance_parsing
-from collections import Counter
 
-CATEGORY_SIZE = 5
-BAD_CLASSIFY = -1
-GOOD_CLASSIFY = 1
-TEST_INSTANCE_SIZE = 50
-
-def div_instances_per_category(instances_list):
-    div_instances_to_category_dict = {}
-
-    for instance in instances_list:
-        senseid = instance.senseid
-        if senseid in div_instances_to_category_dict.keys():
-            div_instances_to_category_dict[senseid].append(instance)
-        else:
-            div_instances_to_category_dict[senseid] = [instance]
-
-
-    #     if instance.senseid == "cord":
-    #         cord_instances.append(instance)
-    #     elif instance.senseid == "formation":
-    #         formation_instances.append(instance)
-    #     elif instance.senseid == "phone":
-    #         phone_instances.append(instance)
-    #     elif instance.senseid == "division":
-    #         division_instances.append(instance)
-    #     elif instance.senseid == "product":
-    #         product_instances.append(instance)
-    #
-    # div_instances_to_category_list = []
-    # for key in label_category:
-    #     if label_category[key] == "cord":
-    #         div_instances_to_category_list.append(cord_instances)
-    #     elif label_category[key] == "formation":
-    #         div_instances_to_category_list.append(formation_instances)
-    #     elif label_category[key] == "phone":
-    #         div_instances_to_category_list.append(phone_instances)
-    #     elif label_category[key] == "division":
-    #         div_instances_to_category_list.append(division_instances)
-    #     elif label_category[key] == "product":
-    #         div_instances_to_category_list.append(product_instances)
-    return div_instances_to_category_dict
+###########################################################################
+# Class 'NaiveBayes'
+# Contain classifier functions for implement naive base classify algorithm
+###########################################################################
 class NaiveBayes(object):
     def __init__(self):
         self.priors_per_category_dict = {}
         self.freq_dist_object = {}
 
+    ##############################################################
+    # Function 'train'-
+    # get train xml file and create language models for testing.
+    ##############################################################
     def train(self, instances_list):
         for instance in instances_list:
             senseid = instance.senseid
@@ -64,114 +38,104 @@ class NaiveBayes(object):
             # Calculation of the prior per category
             self.priors_per_category_dict[senseid] = self.priors_per_category_dict.get(senseid, 0) + 1
 
-
-        # keys = sorted([s for s in self.priors_per_category_dict])
-        # for s in keys:
-        #     s =s
-        #     # print(s, "--", self.freq_dist_object[s])
-        #     # print(s, "--", len(self.freq_dist_object[s].keys()), "---", self.freq_dist_object[s].N())
-        # exit()
-
         # A division of the count of any instances of self 'instances_list' size
         for senseid in self.priors_per_category_dict:
             self.priors_per_category_dict[senseid] /= instances_list.__len__()
 
+    ##############################################################
+    # Function 'test'-
+    # get test xml file and classify every instance in the file.
+    ##############################################################
     def test(self, instances_test):
-        true_positives = Counter()
-        false_positives = Counter()
-        false_negatives = Counter()
-        percision = Counter()
-        recall = Counter()
-        results = []
-        total_correct = 0
+
+        results_to_file = {}
+        true_positives = {}
+        false_positives = {}
+        false_negatives = {}
+        correct_accuracy_size = 0
+
+        ''' The kind of instances in alphabetical order '''
         kind_of_instance = sorted([senseid for senseid in self.priors_per_category_dict])
 
+        '''  The variable initialization to include all types of instances '''
+        for key in kind_of_instance:
+            results_to_file[key] = []
+            true_positives[key] = false_positives[key] = false_negatives[key] = 0
 
-        ii = 0
         for instance in instances_test:
-            senseid = instance.senseid
-            scores = Counter()
+            classify_predict = -1
+            probability = probability_predict = 0
             for kind_instance in kind_of_instance:
-                scores[kind_instance] = self.priors_per_category_dict[kind_instance]
-                freq_fict = FreqDist(instance.context)
-                tokens = freq_fict.keys()
+                probability = self.priors_per_category_dict[kind_instance]
+                tokens = word_tokenize(instance.context)
 
                 for word in tokens:
-                    # P(vj | sk )
-                    word_smoothed_probability = (self.freq_dist_object[kind_instance][word] + 1) / \
-                                                (len(self.freq_dist_object[kind_instance].keys()) +
-                                                    self.freq_dist_object[kind_instance].N())
-                    print((self.freq_dist_object[kind_instance][word] + 1), "/", len(self.freq_dist_object[kind_instance].keys()), "+", self.freq_dist_object[kind_instance].N())
-                    exit()
+                    '''len(self.freq_dist_object[kind_instance].keys()) -> size dictionary of 'kind_instance'
+                    instances list.
+                    self.freq_dist_object[kind_instance].N()  -> size all tokens's show in 'kind_instance'
+                    FreqDict object. '''
+                    probability_smoothing = (self.freq_dist_object[kind_instance][word] + 1) / \
+                                            (len(self.freq_dist_object[kind_instance].keys()) +
+                                             self.freq_dist_object[kind_instance].N())
+                    probability += log2(probability_smoothing)
 
-                    scores[kind_instance] += log2(word_smoothed_probability)
+                if probability_predict == 0 or probability_predict < probability:
+                    probability_predict = probability
+                    classify_predict = kind_instance
 
-            #
-            # print(instance.instance_id)
-            # sorted(scores)
-            # print(scores);print(scores.most_common(1)[0][0]);exit()
-            # result_senseid = scores.most_common(1)[0][0]
-            # results.append((instance.instance_id, result_senseid))
-            # if instance.senseid == result_senseid:
-            #     true_positives[result_senseid] = true_positives.get(result_senseid, 0) + 1
-            #     total_correct += 1
-            # else:
-            #     false_positives[result_senseid] = true_positives.get(result_senseid, 0) + 1
-            #     false_negatives[instance.senseid] = false_negatives.get(instance.senseid, 0) + 1
-            print(instance.instance_id, "    ", scores)
+            results_to_file[instance.senseid].append((instance.instance_id, classify_predict))
+            if instance.senseid == classify_predict:
+                true_positives[classify_predict] += 1
+                correct_accuracy_size += 1
+            else:
+                false_positives[classify_predict] += 1
+                false_negatives[instance.senseid] += 1
 
-            ii += 1
-            if ii == 10:
-                exit()
-
-
-
+        precision_dict = {}
+        recall_dict = {}
         for senseid in kind_of_instance:
-            percision[senseid] = true_positives[senseid] / (1 + true_positives[senseid] + false_positives[senseid])
-            recall[senseid] = true_positives[senseid] / (1 + true_positives[senseid] + false_negatives[senseid])
-        accuracy = total_correct / len(instances_test)
+            precision_dict[senseid] = true_positives[senseid] / (true_positives[senseid] + false_positives[senseid])
+            recall_dict[senseid] = true_positives[senseid] / (true_positives[senseid] + false_negatives[senseid])
 
-        return percision, recall, accuracy, results
+        accuracy = correct_accuracy_size / instances_test.__len__()
 
-def main():
+        return accuracy, results_to_file, precision_dict, recall_dict
+
+
+def main(argv):
     # Calculation Runtime
     start = clock()
+    if len(argv) < 4:
+        exit("Error: You need to enter like that: python nb_classify.py <train_file_path> "
+             "<test_file_path> <output_file_path>")
+    else:
+        print("The train file path entered is: ", argv[1])
+        print("The test file path entered is: ", argv[2])
+        print("The output file path entered is: ", argv[3])
 
+    # open train and test xml files.
     instances_train = instance_parsing("train.xml")
     instances_test = instance_parsing("test.xml")
 
+    # create classifier
     nb_classifier = NaiveBayes()
 
     nb_classifier.train(instances_train)
-    percision, recall, accuracy, results = nb_classifier.test(instances_test)
+    accuracy, results_to_file, precision_dict, recall_dict = nb_classifier.test(instances_test)
 
-    # max_word_len = max([len(w) for w in percision])
-    # for senseid in sorted(percision.keys()):
-    #     print(senseid + ' ' * (max_word_len - len(senseid)) + ' : percision: {: >.3f}, recall: {: >.3f}'.format(
-    #         percision[senseid], recall[senseid]))
-    # print()
-    # print('total accuracy: {: >.3f}'.format(accuracy))
+    ''' Save the results classify to file '''
+    with open("11.txt", 'w') as file:
+        for line in results_to_file:
+            file.write(line[0] + " " + line[1] + '\r\n')
 
-    print(percision)
-    print(recall)
-
-    # nb_classifyer = NBClassifyer()
-    # nb_classifyer.train(args.train_file_path)
-    # percision, recall, accuracy, results = nb_classifyer.test(args.test_file_path)
-
-    # max_word_len = max([len(w) for w in percision])
-    # for senseid in sorted(percision.keys()):
-    #     print(senseid + ' ' * (max_word_len - len(senseid)) + ' : percision: {: >.3f}, recall: {: >.3f}'.format(
-    #         percision[senseid], recall[senseid]))
-    # print()
-    # print('total accuracy: {: >.3f}'.format(accuracy))
-    #
-    # with open(args.output_file_path, 'w') as f:
-    #     for result in results:
-    #         f.write(result[0] + ' ' + result[1] + '\n')
+    """ We calculate the maximum length of the word, to print beautiful Output """
+    max_word_len = max([len(w) for w in precision_dict])
+    for key in sorted(precision_dict.keys()):
+        print("<", key, ">: ", (max_word_len - len(key)) * " ", "percision: <%.5f>," % precision_dict[key],
+              "recall: <%.5f>" % recall_dict[key])
+    print("\r\ntotal accuracy: <%.5f>" % accuracy)
 
     print("All done :-), the time it takes to produce all the files ", clock() - start, "sec")
 
-
 if __name__ == '__main__':
-    main()
+    main(argv)
