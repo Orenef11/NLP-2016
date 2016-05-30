@@ -113,8 +113,8 @@ def main(argv):
         print("The output file path entered is: ", argv[3])
 
     # open train and test xml files.
-    instances_train = instance_parsing("train.xml")
-    instances_test = instance_parsing("test.xml")
+    instances_train = instance_parsing(argv[1])
+    instances_test = instance_parsing(argv[2])
 
     # create classifier
     nb_classifier = NaiveBayes()
@@ -123,7 +123,7 @@ def main(argv):
     accuracy, results_to_file, precision_dict, recall_dict = nb_classifier.test(instances_test)
 
     ''' Save the results classify to file '''
-    with open("11.txt", 'w') as file:
+    with open(argv[3], 'w') as file:
         for line in results_to_file:
             file.write(line[0] + " " + line[1] + '\r\n')
 
