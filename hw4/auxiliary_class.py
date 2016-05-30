@@ -1,6 +1,6 @@
-class INSTANCE(object):
+class Instance(object):
 
-    def __init__(self,  instance_id="", answer_id="", senseid="", context="", instance_xml=""):
+    def __init__(self, instance_id="", answer_id="", senseid="", context="", instance_xml=""):
         self.instance_id = instance_id
         self.answer_id = answer_id
         self.senseid = senseid
