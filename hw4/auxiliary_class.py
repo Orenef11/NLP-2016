@@ -1,3 +1,14 @@
+##################
+# Oren Efraimov  #
+#                #
+# Lior Portnoy   #
+##################
+
+
+####################################################
+# Class 'Instance'
+# The class define xml instance object for parsing.
+####################################################
 class Instance(object):
 
     def __init__(self, instance_id="", answer_id="", senseid="", context="", sentences_size_in_context="",

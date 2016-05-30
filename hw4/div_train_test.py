@@ -1,3 +1,10 @@
+#################
+# Oren Efraimov  #
+#                #
+# Lior Portnoy   #
+##################
+
+
 from time import clock
 from sys import argv
 from os.path import join
@@ -7,6 +14,13 @@ from auxiliary_class import Instance
 
 DIV_TEST_SIZE = 50
 
+
+#######################################
+# Function - 'instance_parsing'
+# The function get in put path for file
+# parsing and return instances list
+# from xml.
+#######################################
 def instance_parsing(path_file):
     etree = ET.parse(path_file)
     root = etree.getroot()
@@ -19,6 +33,12 @@ def instance_parsing(path_file):
 
     return instances_list
 
+
+###################################################
+# Function - 'div_train_and_test_file'
+# The function get list of instances from xml file
+# and return dictionary of instances by sense id
+###################################################
 def div_train_and_test_file(instances_list):
     div_instances_to_category_dict = {}
 
@@ -31,6 +51,12 @@ def div_train_and_test_file(instances_list):
 
     return div_by_category(div_instances_to_category_dict)
 
+
+################################################
+# Function - 'div_by_category'
+# The function take from every section group of
+# instances for testing file.
+################################################
 def div_by_category(instances_by_category_dict):
     instances_test = {}
     for key in instances_by_category_dict:
@@ -46,6 +72,13 @@ def div_by_category(instances_by_category_dict):
 
     return instances_test, instances_by_category_dict
 
+
+#############################################
+# Function - 'export_to_xml_file'
+# The function get instances list and create
+# xml file with correct xml objects that
+# contain the in stances.
+#############################################
 def export_to_xml_file(instances_dict, xml_file_name):
     root = ET.Element("corpus", lang="en")
     lexelt = ET.SubElement(root, "lexelt", item="line-n")
