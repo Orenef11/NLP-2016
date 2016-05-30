@@ -57,18 +57,24 @@ class NaiveBayes(object):
                 # Create FreqDict variable
                 self.freq_dist_object[senseid] = FreqDist()
 
-            # Save the counter variable
-            self.freq_dist_object[senseid].update(word_tokenize(instance.context))
+            # Save the counter variable for each sentence in instance
+            sentences = instance.context.split("\r\n")
+            for sentence in sentences:
+                self.freq_dist_object[senseid].update(word_tokenize(sentence))
             # Calculation of the prior per category
             self.priors_per_category_dict[senseid] = self.priors_per_category_dict.get(senseid, 0) + 1
 
 
+        # keys = sorted([s for s in self.priors_per_category_dict])
+        # for s in keys:
+        #     s =s
+        #     # print(s, "--", self.freq_dist_object[s])
+        #     # print(s, "--", len(self.freq_dist_object[s].keys()), "---", self.freq_dist_object[s].N())
+        # exit()
+
         # A division of the count of any instances of self 'instances_list' size
-        s = 0
         for senseid in self.priors_per_category_dict:
             self.priors_per_category_dict[senseid] /= instances_list.__len__()
-            s += self.priors_per_category_dict[senseid]
-
 
     def test(self, instances_test):
         true_positives = Counter()
@@ -80,6 +86,8 @@ class NaiveBayes(object):
         total_correct = 0
         kind_of_instance = sorted([senseid for senseid in self.priors_per_category_dict])
 
+
+        ii = 0
         for instance in instances_test:
             senseid = instance.senseid
             scores = Counter()
@@ -93,16 +101,30 @@ class NaiveBayes(object):
                     word_smoothed_probability = (self.freq_dist_object[kind_instance][word] + 1) / \
                                                 (len(self.freq_dist_object[kind_instance].keys()) +
                                                     self.freq_dist_object[kind_instance].N())
+                    print((self.freq_dist_object[kind_instance][word] + 1), "/", len(self.freq_dist_object[kind_instance].keys()), "+", self.freq_dist_object[kind_instance].N())
+                    exit()
+
                     scores[kind_instance] += log2(word_smoothed_probability)
 
-            result_senseid = scores.most_common(1)[0][0]
-            results.append((instance.instance_id, result_senseid))
-            if instance.senseid == result_senseid:
-                true_positives[result_senseid] = true_positives.get(result_senseid, 0) + 1
-                total_correct += 1
-            else:
-                false_positives[result_senseid] = true_positives.get(result_senseid, 0) + 1
-                false_negatives[instance.senseid] = false_negatives.get(instance.senseid, 0) + 1
+            #
+            # print(instance.instance_id)
+            # sorted(scores)
+            # print(scores);print(scores.most_common(1)[0][0]);exit()
+            # result_senseid = scores.most_common(1)[0][0]
+            # results.append((instance.instance_id, result_senseid))
+            # if instance.senseid == result_senseid:
+            #     true_positives[result_senseid] = true_positives.get(result_senseid, 0) + 1
+            #     total_correct += 1
+            # else:
+            #     false_positives[result_senseid] = true_positives.get(result_senseid, 0) + 1
+            #     false_negatives[instance.senseid] = false_negatives.get(instance.senseid, 0) + 1
+            print(instance.instance_id, "    ", scores)
+
+            ii += 1
+            if ii == 10:
+                exit()
+
+
 
         for senseid in kind_of_instance:
             percision[senseid] = true_positives[senseid] / (1 + true_positives[senseid] + false_positives[senseid])
@@ -117,9 +139,7 @@ def main():
 
     instances_train = instance_parsing("train.xml")
     instances_test = instance_parsing("test.xml")
-    kinds = {}
-    for instance in instances_test:
-        kinds[instance.senseid] = kinds.get(instance.senseid, 0) + 1
+
     nb_classifier = NaiveBayes()
 
     nb_classifier.train(instances_train)
