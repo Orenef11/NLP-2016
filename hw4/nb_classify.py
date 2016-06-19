@@ -123,14 +123,15 @@ def main(argv):
     accuracy, results_to_file, precision_dict, recall_dict = nb_classifier.test(instances_test)
 
     ''' Save the results classify to file '''
-    with open(argv[3], 'w') as file:
-        for line in results_to_file:
-            file.write(line[0] + " " + line[1] + '\r\n')
+    with open(argv[3], 'w', encoding="utf8") as f:
+        for kind_of_instance in results_to_file:
+            for line in results_to_file[kind_of_instance]:
+                f.write(line[0] + " " + line[1] + '\r\n')
 
     """ We calculate the maximum length of the word, to print beautiful Output """
     max_word_len = max([len(w) for w in precision_dict])
     for key in sorted(precision_dict.keys()):
-        print("<", key, ">: ", (max_word_len - len(key)) * " ", "percision: <%.5f>," % precision_dict[key],
+        print("<" + key + ">: ", (max_word_len - len(key)) * " ", "precision: <%.5f>," % precision_dict[key],
               "recall: <%.5f>" % recall_dict[key])
     print("\r\ntotal accuracy: <%.5f>" % accuracy)
 

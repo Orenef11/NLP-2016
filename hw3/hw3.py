@@ -14,6 +14,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, E
 from sklearn.feature_selection import SelectKBest
 from os.path import join
 
+
 K_FOLDS = 10
 
 ################################################
@@ -185,7 +186,7 @@ def main(argv):
     else:
         print("The reviews folder path entered is: ", argv[1])
         print("The words file input path is: ", argv[2])
-        print("The best words file path entered is: ", argv[3])
+        print("The best words file pa thentered is: ", argv[3])
 
     input_file_words = argv[2]
     words_list = create_positive_and_negative_list(input_file_words)
