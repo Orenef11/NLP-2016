@@ -153,8 +153,7 @@ def main(argv):
     except ConnectionError as e:
         sys.exit("Connection to the Ynet's website failed({0}): {1}".format(e.errno, e.strerror))
     except:
-        sys.exit("Error: General fail that not support!!\n"
-                 "Please contact the support department by phone - 054-9849566 (ask Oren :-))\n")
+        sys.exit("Error: General fail that not support!!\n")
 
     tags_list = [('title', 'div', 2, 3, False), ('body', 'p', True)]
     file_article = open_file(os.path.join(path, "article.txt"))
